@@ -1,25 +1,16 @@
 import React, { useEffect } from "react";
 import { fetchArticles } from "../../context/articles/action";
-
-// So, let's import the useProjectsDispatch custom hook.
 import { useArticleDispatch } from "../../context/articles/context";
 
-// I'll import the ProjectListItems component from the same folder.
-// This I'll define next.
 import ArticleListItems from "./ArticleListItems";
 const ArticleList: React.FC = () => {
-  // I'll define a new constant called dispatchProjects,
-  // to call the useProjectsDispatch() hook.
   const dispatchArticle = useArticleDispatch();
 
   useEffect(() => {
-    // And I'll pass the `dispatchProjects` to `fetchProjects` function.
     fetchArticles(dispatchArticle);
   }, []);
   return (
     <div className="grid gap-4 grid-cols-1 mt-5 mr-52">
-      {/*To keep this file clean, I'll move all the logic to access the projects 
-       from our app-state, to a new component ProjectListItems */}
       <ArticleListItems />
       <br />
     </div>

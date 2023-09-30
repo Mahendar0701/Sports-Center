@@ -10,22 +10,17 @@ import { usePreferencesDispatch } from "../../context/preferences/context";
 // This I'll define next.
 import MatchListItems from "./MatchListItems";
 // import matches from ".";
-import MatchSlider from "./MatchSlider";
+// import MatchSlider from "./MatchSlider";
 const MatchList: React.FC = () => {
-  // I'll define a new constant called dispatchProjects,
-  // to call the useProjectsDispatch() hook.
   const dispatchMatch = useMatchDispatch();
   const dispatchPreferences = usePreferencesDispatch();
 
   useEffect(() => {
-    // And I'll pass the `dispatchProjects` to `fetchProjects` function.
     fetchMatches(dispatchMatch);
     fetchPreferences(dispatchPreferences);
   }, []);
   return (
     <div className="grid gap-4 grid-cols-4 mt-5 mr-52">
-      {/*To keep this file clean, I'll move all the logic to access the projects
-       from our app-state, to a new component ProjectListItems */}
       <MatchListItems />
       {/* <MatchSlider /> */}
       <br />

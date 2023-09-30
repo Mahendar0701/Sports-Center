@@ -17,17 +17,21 @@ import {
   usePreferencesDispatch,
   usePreferencesState,
 } from "../../context/preferences/context";
+import { fetchSports } from "../../context/sports/action";
+import { fetchTeams } from "../../context/teams/action";
+import { useSportDispatch, useSportState } from "../../context/sports/context";
+import { useTeamDispatch, useTeamState } from "../../context/teams/context";
 
 const FavouriteArticleList: React.FC = () => {
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedTeam, setSelectedTeam] = useState<string>("");
   // const [selectedTeam, setSelectedTeam] = useState<string>("");
 
-  // const dispatchSport = useSportDispatch();
-  // const state1: any = useSportState();
+  const dispatchSport = useSportDispatch();
+  const state1: any = useSportState();
 
-  // const dispatchTeam = useTeamDispatch();
-  // const state2: any = useTeamState();
+  const dispatchTeam = useTeamDispatch();
+  const state2: any = useTeamState();
 
   const dispatchArticle = useArticleDispatch();
   const state3: any = useArticleState();
@@ -35,13 +39,13 @@ const FavouriteArticleList: React.FC = () => {
   const dispatchPreferences = usePreferencesDispatch();
   const state4: any = usePreferencesState();
 
-  // useEffect(() => {
-  //   fetchSports(dispatchSport);
-  // }, []);
+  useEffect(() => {
+    fetchSports(dispatchSport);
+  }, []);
 
-  // useEffect(() => {
-  //   fetchTeams(dispatchTeam);
-  // }, []);
+  useEffect(() => {
+    fetchTeams(dispatchTeam);
+  }, []);
 
   useEffect(() => {
     fetchArticles(dispatchArticle);
@@ -50,25 +54,26 @@ const FavouriteArticleList: React.FC = () => {
     fetchPreferences(dispatchPreferences);
   }, []);
 
-  // const { sports, isLoading, isError, errorMessage } = state1;
+  const { sports, isLoading, isError, errorMessage } = state1;
+  console.log("favorite sport", state1.sports);
 
-  // if (isLoading) {
-  //   return <span>Loading...</span>;
-  // }
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
 
-  // if (isError) {
-  //   return <span>{errorMessage}</span>;
-  // }
+  if (isError) {
+    return <span>{errorMessage}</span>;
+  }
 
-  // const { teams, isLoading1, isError1, errorMessage1 } = state2;
+  const { teams, isLoading1, isError1, errorMessage1 } = state2;
 
-  // if (isLoading1) {
-  //   return <span>Loading...</span>;
-  // }
+  if (isLoading1) {
+    return <span>Loading...</span>;
+  }
 
-  // if (isError1) {
-  //   return <span>{errorMessage1}</span>;
-  // }
+  if (isError1) {
+    return <span>{errorMessage1}</span>;
+  }
   const { articles, isLoading2, isError2, errorMessage2 } = state3;
 
   if (isLoading2) {
@@ -94,44 +99,85 @@ const FavouriteArticleList: React.FC = () => {
       (article.sport.name === selectedSport && !selectedTeam) ||
       article.teams.some((team) => team.name === selectedTeam)
   );
+  console.log("sekected sports", selectedSport);
+
+  const storedValue = localStorage.getItem("authenticated");
+  const isAuthenticated = storedValue === "true";
 
   return (
     <div>
-      {/* Dropdown/select input to choose favorite sport */}
-
-      <select
-        value={selectedSport}
-        onChange={(e) => setSelectedSport(e.target.value)}
-      >
-        <option value="">Select Favorite Sport</option>
-        {preferences.sports &&
-          preferences.sports.length > 0 &&
-          preferences.sports.map((sport: string, index: number) => (
-            <option key={index} value={sport}>
-              {sport}
-            </option>
-          ))}
-      </select>
-      <br />
-      <select
-        value={selectedTeam}
-        onChange={(e) => setSelectedTeam(e.target.value)}
-      >
-        <option value="">Select Favorite Team</option>
-        {preferences.teams &&
-          preferences.teams.length > 0 &&
-          preferences.teams.map((team: string, index: number) => (
-            <option key={index} value={team}>
-              {team}
-            </option>
-          ))}
-      </select>
+      <div>
+        {isAuthenticated ? (
+          <div>
+            <select
+              value={selectedSport}
+              onChange={(e) => setSelectedSport(e.target.value)}
+            >
+              <option value="">Select Favorite Sport</option>
+              {preferences.sports &&
+                preferences.sports.length > 0 &&
+                preferences.sports.map((sport: string, index: number) => (
+                  <option key={index} value={sport}>
+                    {sport}
+                  </option>
+                ))}
+            </select>
+            <br />
+            <select
+              value={selectedTeam}
+              onChange={(e) => setSelectedTeam(e.target.value)}
+            >
+              <option value="">Select Favorite Team</option>
+              {preferences.teams &&
+                preferences.teams.length > 0 &&
+                preferences.teams.map((team: string, index: number) => (
+                  <option key={index} value={team}>
+                    {team}
+                  </option>
+                ))}
+            </select>
+          </div>
+        ) : (
+          // Render content for non-authenticated users
+          <div>
+            <p>login</p>
+            <select
+              value={selectedSport}
+              onChange={(e) => setSelectedSport(e.target.value)}
+            >
+              <option value="">Select Favorite Sport</option>
+              {state1.sports &&
+                state1.sports.length > 0 &&
+                state1.sports.map((sport: string, index: number) => (
+                  <option key={index} value={sport.name}>
+                    {sport.name}
+                  </option>
+                ))}
+            </select>
+            <br />
+            <select
+              value={selectedTeam}
+              onChange={(e) => setSelectedTeam(e.target.value)}
+            >
+              <option value="">Select Favorite Team</option>
+              {state2.teams &&
+                state2.teams.length > 0 &&
+                state2.teams.map((team: string, index: number) => (
+                  <option key={index} value={team}>
+                    {team.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+        )}
+      </div>
 
       {state3.isLoading ? (
         <div>Loading...</div>
       ) : (
         // {preferences.sports}
         // Check if selectedSport is empty before rendering articles
+
         selectedSport && (
           <div className="grid gap-4 grid-cols-4 mt-5">
             {filteredArticles.map((article) => (

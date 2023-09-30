@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useArticleDispatch } from "../../context/articles/context";
 import { fetchArticles } from "../../context/articles/action";
 import { Outlet } from "react-router-dom";

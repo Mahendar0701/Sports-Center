@@ -68,10 +68,8 @@ const MatchSlider = ({ matches }) => {
         &lt;
       </button>
       <div className="match-card">
-        {/* Display the current match */}
         <h2>{matches[currentMatch].name}</h2>
         <p>{matches[currentMatch].sportName}</p>
-        {/* Add other match details */}
       </div>
       <button onClick={nextMatch} className="next-button">
         &gt;

@@ -2,6 +2,7 @@ import MatchList from "../matches/MatchList";
 import Preferences from "../preferences";
 import ArticleList from "./ArticleList";
 import FavouriteArticleList from "./Favorites";
+import { TabsDefault } from "./Tabs";
 //dont use
 // import NewArticle from "./NewArticle";
 // import SportList from "./SportList";
@@ -24,6 +25,8 @@ const Articles = () => {
       {/* <ProjectList /> */}
       <h2>Favourites</h2>
       <FavouriteArticleList />
+      <TabsDefault />
+
       <h2>Articles</h2>
       <ArticleList />
     </>

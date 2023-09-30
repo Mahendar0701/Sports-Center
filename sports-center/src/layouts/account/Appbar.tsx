@@ -6,10 +6,17 @@ import Logo from "../../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/theme";
 
-const userNavigation = [
-  { name: "Profile", href: "#" },
-  { name: "Sign out", href: "/logout" },
-];
+const userNavigation = [{ name: "Profile", href: "#" }];
+
+const storedValue = localStorage.getItem("authenticated");
+const isAuthenticated = storedValue === "true"; // Convert back to boolean
+
+if (!isAuthenticated) {
+  userNavigation.push({ name: "Sign in", href: "/signin" });
+}
+if (isAuthenticated) {
+  userNavigation.push({ name: "Sign out", href: "/logout" });
+}
 
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");

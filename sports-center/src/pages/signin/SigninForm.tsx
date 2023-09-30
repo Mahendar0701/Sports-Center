@@ -126,6 +126,7 @@ const SigninForm = () => {
       // After successful signin, first we will save the token in localStorage
       localStorage.setItem("authToken", data.auth_token);
       localStorage.setItem("userData", JSON.stringify(data.user));
+      localStorage.setItem("authenticated", "true");
       // return navigate("/dashboard");
       navigate("/account");
     } catch (error) {
@@ -134,11 +135,25 @@ const SigninForm = () => {
   };
   return (
     // <form onSubmit={handleSubmit}>
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <div>
-        {error && <span>{error}</span>}
-        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
-        {/* <input
+        <h1>Don't have an account </h1>
+        <a
+          href="/signup"
+          id="logout-link"
+          className="px-3 py-1 my-3 bg-red-200 hover:bg-red-300 rounded"
+          // onClick={logoutHandle}
+        >
+          Sign Up
+        </a>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          {error && <span>{error}</span>}
+          <label className="block text-gray-700 font-semibold mb-2">
+            Email:
+          </label>
+          {/* <input
           type="email"
           name="email"
           id="email"
@@ -146,22 +161,22 @@ const SigninForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-        <input
-          id="email"
-          type="text"
-          placeholder="Enter email..."
-          autoFocus
-          {...register("email", { required: true })}
-          className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-            errors.email ? "border-red-500" : ""
-          }`}
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">
-          Password:
-        </label>
-        {/* <input
+          <input
+            id="email"
+            type="text"
+            placeholder="Enter email..."
+            autoFocus
+            {...register("email", { required: true })}
+            className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+              errors.email ? "border-red-500" : ""
+            }`}
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Password:
+          </label>
+          {/* <input
           type="password"
           name="password"
           id="password"
@@ -169,24 +184,25 @@ const SigninForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter project name..."
-          autoFocus
-          {...register("password", { required: true })}
-          className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-            errors.password ? "border-red-500" : ""
-          }`}
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
-      >
-        Sign In
-      </button>
-    </form>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter project name..."
+            autoFocus
+            {...register("password", { required: true })}
+            className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+              errors.password ? "border-red-500" : ""
+            }`}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
+        >
+          Sign In
+        </button>
+      </form>
+    </div>
   );
 };
 

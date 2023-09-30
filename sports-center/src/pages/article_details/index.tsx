@@ -1,16 +1,11 @@
-import React from "react";
+import Article from "./Article";
 
-import ArticleDetails from "./ArticlesDetails";
-
-import { Outlet } from "react-router-dom";
-
-const ArticleDetailsIndex: React.FC = () => {
+const ArticleDetailsIndex = () => {
   return (
     <>
-      <ArticleDetails />
-      <Outlet />
+      <h2>Article1</h2>
+      <Article />
     </>
   );
 };
-
 export default ArticleDetailsIndex;

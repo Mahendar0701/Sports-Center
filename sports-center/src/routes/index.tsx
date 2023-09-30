@@ -8,8 +8,10 @@ import Articles from "../pages/articles";
 import Matches from "../pages/matches";
 import Logout from "../pages/logout";
 import Sports from "../pages/sports";
-import ArticleDetails from "../pages/article_details";
 import ArticleContainer from "../pages/articles/ArticleContainer";
+import MatchDetailsIndex from "../pages/match_details";
+import ArticleDetailsIndex from "../pages/article_details";
+// import Article from "../pages/article_detail/Article";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/account/projects" replace /> },
@@ -42,13 +44,22 @@ const router = createBrowserRouter([
           { index: true, element: <Articles /> },
           {
             path: ":articleID",
-            element: <ArticleDetails />,
+            // element: <ArticleDetails />,
+            element: <ArticleDetailsIndex />,
+            // element: <Article />,
           },
         ],
       },
       {
         path: "members",
-        element: <Matches />,
+        // element: <Matches />,
+        children: [
+          { index: true, element: <Matches /> },
+          {
+            path: ":matchID",
+            element: <MatchDetailsIndex />,
+          },
+        ],
       },
       {
         path: "sports",

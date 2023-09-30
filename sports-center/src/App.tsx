@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import router from "./routes";
@@ -8,6 +8,8 @@ import { MatchProvider } from "./context/matches/context";
 import { SportProvider } from "./context/sports/context";
 import { TeamProvider } from "./context/teams/context";
 import { PreferencesProvider } from "./context/preferences/context";
+import { ArticleDetailProvider } from "./context/article_details/context";
+import { MatchDetailProvider } from "./context/match_details/context";
 
 const App = () => {
   return (
@@ -17,7 +19,11 @@ const App = () => {
           <SportProvider>
             <TeamProvider>
               <PreferencesProvider>
-                <RouterProvider router={router} />
+                <ArticleDetailProvider>
+                  <MatchDetailProvider>
+                    <RouterProvider router={router} />
+                  </MatchDetailProvider>
+                </ArticleDetailProvider>
               </PreferencesProvider>
             </TeamProvider>
           </SportProvider>

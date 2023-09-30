@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Sport from "./Sport";
 import { SportItem } from "./types";
 

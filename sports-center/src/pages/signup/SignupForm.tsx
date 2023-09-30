@@ -146,6 +146,7 @@ const SignupForm = () => {
       //   localStorage.setItem("authenticated", "true");
       localStorage.setItem("authToken", data.auth_token);
       localStorage.setItem("userData", JSON.stringify(data.user));
+      localStorage.setItem("authenticated", "true");
       // return navigate("/dashboard");
       navigate("/account");
     } catch (error) {
@@ -155,11 +156,23 @@ const SignupForm = () => {
 
   return (
     // <form onSubmit={handleSubmit}>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <div>
+    <div>
+      <div>
+        <h1>Have an account </h1>
+        <a
+          href="/signin"
+          id="logout-link"
+          className="px-3 py-1 my-3 bg-red-200 hover:bg-red-300 rounded"
+          // onClick={logoutHandle}
+        >
+          Sign in
+        </a>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <div>
         {error && <span>{error}</span>}
         <label className="block text-gray-700 font-semibold mb-2">Name:</label> */}
-      {/* <input
+        {/* <input
           type="text"
           name="organisationName"
           id="organisationName"
@@ -167,7 +180,7 @@ const SignupForm = () => {
           onChange={(e) => setOrganisationName(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-      {/* <input
+        {/* <input
           id="organisationName"
           type="text"
           placeholder="Enter Organization name..."
@@ -178,11 +191,11 @@ const SignupForm = () => {
           }`}
         />
       </div> */}
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">
-          Your Name:
-        </label>
-        {/* <input
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Your Name:
+          </label>
+          {/* <input
           type="text"
           name="userName"
           id="userName"
@@ -190,20 +203,22 @@ const SignupForm = () => {
           onChange={(e) => setUserName(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-        <input
-          id="userName"
-          type="text"
-          placeholder="Enter User name..."
-          autoFocus
-          {...register("name", { required: true })}
-          className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-            errors.name ? "border-red-500" : ""
-          }`}
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
-        {/* <input
+          <input
+            id="userName"
+            type="text"
+            placeholder="Enter User name..."
+            autoFocus
+            {...register("name", { required: true })}
+            className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+              errors.name ? "border-red-500" : ""
+            }`}
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Email:
+          </label>
+          {/* <input
           type="email"
           name="userEmail"
           id="userEmail"
@@ -211,22 +226,22 @@ const SignupForm = () => {
           onChange={(e) => setUserEmail(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-        <input
-          id="userEmail"
-          type="text"
-          placeholder="Enter email..."
-          autoFocus
-          {...register("email", { required: true })}
-          className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-            errors.email ? "border-red-500" : ""
-          }`}
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">
-          Password:
-        </label>
-        {/* <input
+          <input
+            id="userEmail"
+            type="text"
+            placeholder="Enter email..."
+            autoFocus
+            {...register("email", { required: true })}
+            className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+              errors.email ? "border-red-500" : ""
+            }`}
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Password:
+          </label>
+          {/* <input
           type="password"
           name="userPassword"
           id="userPassword"
@@ -234,24 +249,25 @@ const SignupForm = () => {
           onChange={(e) => setUserPassword(e.target.value)}
           className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         /> */}
-        <input
-          id="userPassword"
-          type="password"
-          placeholder="Enter password..."
-          autoFocus
-          {...register("password", { required: true })}
-          className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-            errors.password ? "border-red-500" : ""
-          }`}
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
-      >
-        Sign up
-      </button>
-    </form>
+          <input
+            id="userPassword"
+            type="password"
+            placeholder="Enter password..."
+            autoFocus
+            {...register("password", { required: true })}
+            className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+              errors.password ? "border-red-500" : ""
+            }`}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-gray mt-4"
+        >
+          Sign up
+        </button>
+      </form>
+    </div>
   );
 };
 
