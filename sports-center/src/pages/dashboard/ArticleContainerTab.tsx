@@ -83,6 +83,7 @@ const ArticleTabList: React.FC = () => {
       if (selectedSport === "Trending" && !isAuthenticated) {
         return true;
       }
+
       if (selectedSport === "Trending" && isAuthenticated) {
         return (
           preferences.sports.includes(article.sport.name) ||

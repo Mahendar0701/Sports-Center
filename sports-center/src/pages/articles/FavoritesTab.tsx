@@ -388,78 +388,82 @@ const FavouriteArticleTabList: React.FC = () => {
   const storedValue = localStorage.getItem("authenticated");
   const isAuthenticated = storedValue === "true";
 
-  // const filteredArticles = articles.filter(
-  //   (article: { sport: { name: string }; teams: any[] }) => {
-  //     if (selectedSport === "Trending" && !isAuthenticated) {
-  //       return true;
-  //     }
-  //     if (selectedSport === "Trending" && isAuthenticated) {
-  //       return (
-  //         preferences.sports.includes(article.sport.name) ||
-  //         article.teams.some((team: any) =>
-  //           preferences.teams.includes(team.name)
-  //         )
-  //       );
-  //     }
-  //     return (
-  //       !selectedSport ||
-  //       article.sport.name === selectedSport ||
-  //       article.teams.some((team) => team.name === selectedSport)
-  //     );
+  const filteredArticles = articles.filter(
+    (article: { sport: { name: string }; teams: any[] }) => {
+      if (selectedSport === "Trending" && !isAuthenticated) {
+        return true;
+      }
+      if (selectedSport === "Trending" && isAuthenticated) {
+        return (
+          preferences.sports.includes(article.sport.name) ||
+          article.teams.some((team: any) =>
+            preferences.teams.includes(team.name)
+          )
+        );
+      }
+      return (
+        !selectedSport ||
+        article.sport.name === selectedSport ||
+        article.teams.some((team) => team.name === selectedSport)
+      );
+    }
+  );
+
+  // const filteredArticles = articles.filter((article) => {
+  //   if (selectedSport === "Trending" && !isAuthenticated) {
+  //     return true;
   //   }
-  // );
 
-  const filteredArticles = articles.filter((article) => {
-    if (selectedSport === "Trending" && !isAuthenticated) {
-      return true;
-    }
+  //   if (selectedSport === "Trending" && isAuthenticated) {
+  //     let sportMatch = false;
+  //     let teamMatch = false;
 
-    if (selectedSport === "Trending" && isAuthenticated) {
-      let sportMatch = false;
-      let teamMatch = false;
+  //     if (Array.isArray(preferences.sports)) {
+  //       for (const preferenceSport of preferences.sports) {
+  //         if (article.sport.name === preferenceSport) {
+  //           sportMatch = true;
+  //           break;
+  //         }
+  //       }
+  //     }
 
-      if (Array.isArray(preferences.sports)) {
-        for (const preferenceSport of preferences.sports) {
-          if (article.sport.name === preferenceSport) {
-            sportMatch = true;
-            break;
-          }
-        }
-      }
+  //     if (!sportMatch && Array.isArray(article.teams)) {
+  //       for (const team of article.teams) {
+  //         if (
+  //           Array.isArray(preferences.teams) &&
+  //           preferences.teams.indexOf(team.name) !== -1
+  //         ) {
+  //           teamMatch = true;
+  //           break;
+  //         }
+  //       }
+  //     }
 
-      if (!sportMatch && Array.isArray(article.teams)) {
-        for (const team of article.teams) {
-          if (
-            Array.isArray(preferences.teams) &&
-            preferences.teams.indexOf(team.name) !== -1
-          ) {
-            teamMatch = true;
-            break;
-          }
-        }
-      }
+  //     return sportMatch || teamMatch;
+  //   }
 
-      return sportMatch || teamMatch;
-    }
+  //   if (!selectedSport) {
+  //     return true;
+  //   }
 
-    if (!selectedSport) {
-      return true;
-    }
+  //   if (article.sport.name === selectedSport) {
+  //     return true;
+  //   }
 
-    if (article.sport.name === selectedSport) {
-      return true;
-    }
+  //   // if (isAuthenticated && (!preferences.sports || !preferences.teams)) {
+  //   //   return true;
+  //   // }
 
-    if (Array.isArray(article.teams)) {
-      for (const team of article.teams) {
-        if (team.name === selectedSport) {
-          return true;
-        }
-      }
-    }
+  //   if (Array.isArray(article.teams)) {
+  //     for (const team of article.teams) {
+  //       if (team.name === selectedSport) {
+  //         return true;
+  //       }
+  //     }
+  //   }
 
-    return false;
-  });
+  //   return false;
+  // });
 
   return (
     <div>
