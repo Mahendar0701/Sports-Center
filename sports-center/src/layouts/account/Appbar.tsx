@@ -2,9 +2,10 @@
 import { useState, useContext, Fragment } from "react";
 import { Disclosure, Menu, Transition, Switch } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.jpg";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/theme";
+import Preferences from "../../pages/preferences";
 
 const userNavigation = [{ name: "Profile", href: "#" }];
 
@@ -38,9 +39,10 @@ const Appbar = () => {
   };
 
   const navigation = [
-    { name: "Articles", href: "/account/projects", current: false },
-    { name: "Matches", href: "/account/members", current: false },
-    { name: "Sports", href: "/account/sports", current: false },
+    { name: "Dashboard", href: "/account/projects", current: false },
+    { name: "News", href: "/account/articles", current: false },
+    { name: "Scores", href: "/account/members", current: false },
+    { name: "Favourites", href: "/account/favourites", current: false },
   ];
 
   return (
@@ -51,7 +53,7 @@ const Appbar = () => {
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <img className="h-8" src={Logo} alt="Smarter Tasks" />
+                  <img className="h-10" src={Logo} alt="Smarter Tasks" />
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
@@ -92,6 +94,23 @@ const Appbar = () => {
                 pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                     />
                   </Switch>
+
+                  {isAuthenticated ? (
+                    <div className="">
+                      <Preferences />
+                    </div>
+                  ) : (
+                    <div className="mx-3">
+                      <Link to={`/signin`}>
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        >
+                          Sign in
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">

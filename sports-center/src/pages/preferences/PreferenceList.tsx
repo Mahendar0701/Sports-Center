@@ -10,10 +10,10 @@ import { usePreferencesDispatch } from "../../context/preferences/context";
 
 // I'll import the ProjectListItems component from the same folder.
 // This I'll define next.
-import SportListItems from "./PreferenceListItems";
+import PreferenceListItems from "./PreferenceListItems";
 // import matches from ".";
 // import SportSlider from "./SportSlider";
-const SportList: React.FC = () => {
+const PreferenceList: React.FC = () => {
   // I'll define a new constant called dispatchProjects,
   // to call the useProjectsDispatch() hook.
   const dispatchSport = useSportDispatch();
@@ -27,13 +27,13 @@ const SportList: React.FC = () => {
     fetchPreferences(dispatchPreferences);
   }, []);
   return (
-    <div className="grid gap-4 grid-cols-4 mt-5 mr-52">
+    <div className="mx-5">
       {/*To keep this file clean, I'll move all the logic to access the projects
        from our app-state, to a new component ProjectListItems */}
-      <SportListItems />
+      <PreferenceListItems />
       {/* <MatchSlider /> */}
       <br />
     </div>
   );
 };
-export default SportList;
+export default PreferenceList;

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { fetchArticles } from "../../context/articles/action";
 import { useArticleDispatch } from "../../context/articles/context";
 
-import ArticleListItems from "./ArticleListItems";
+// import ArticleListItems from "./ArticleListItems";
+import ArticleListItems from "./ArticleCard";
 const ArticleList: React.FC = () => {
   const dispatchArticle = useArticleDispatch();
 
@@ -10,7 +11,8 @@ const ArticleList: React.FC = () => {
     fetchArticles(dispatchArticle);
   }, []);
   return (
-    <div className="grid gap-4 grid-cols-1 mt-5 mr-52">
+    // <div className="grid gap-4 grid-cols-1 mt-5 mr-52">
+    <div className="mr-7 my-5">
       <ArticleListItems />
       <br />
     </div>

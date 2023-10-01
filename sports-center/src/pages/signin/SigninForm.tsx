@@ -129,6 +129,7 @@ const SigninForm = () => {
       localStorage.setItem("authenticated", "true");
       // return navigate("/dashboard");
       navigate("/account");
+      window.location.reload();
     } catch (error) {
       console.error("Sign-in failed:", error);
     }

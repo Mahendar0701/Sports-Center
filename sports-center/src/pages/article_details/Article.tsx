@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+// import { getArticle } from "../../context/articles/action";
+// import { useArticleDispatch } from "../../context/articles/context";
 import { getArticle } from "../../context/article_details/action";
 import { useArticleDispatch } from "../../context/article_details/context";
 
@@ -13,11 +15,6 @@ const Article: React.FC = () => {
       getArticle(dispatchArticle, articleID);
     }
   }, [dispatchArticle, articleID]);
-  return (
-    <div>
-      <ArticleItems />
-      <br />
-    </div>
-  );
+  return <ArticleItems />;
 };
 export default Article;

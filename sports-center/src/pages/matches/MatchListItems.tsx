@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import { useMatchState } from "../../context/matches/context";
 // import { useMatchDispatch } from "../../context/matches/context";
 import { Link } from "react-router-dom";
 
 export default function MemberListItems() {
   const state: any = useMatchState();
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prevRefresh) => !prevRefresh);
+  };
 
   const { matches, isLoading, isError, errorMessage } = state;
   // console.log(user);
@@ -43,6 +49,14 @@ export default function MemberListItems() {
                 day: "2-digit",
               })}
             </p>
+            <button
+              id="delete-member-btn"
+              type="submit"
+              onClick={handleRefresh}
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              refresh
+            </button>
             <Link key={match.id} to={`/account/members/${match.id}`}>
               <button
                 id="delete-member-btn"

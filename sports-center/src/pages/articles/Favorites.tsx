@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 // import { API_ENDPOINT } from "../../config/constants";
 
@@ -21,6 +20,7 @@ import { fetchSports } from "../../context/sports/action";
 import { fetchTeams } from "../../context/teams/action";
 import { useSportDispatch, useSportState } from "../../context/sports/context";
 import { useTeamDispatch, useTeamState } from "../../context/teams/context";
+import { Link } from "react-router-dom";
 
 const FavouriteArticleList: React.FC = () => {
   const [selectedSport, setSelectedSport] = useState<string>("");
@@ -138,7 +138,6 @@ const FavouriteArticleList: React.FC = () => {
             </select>
           </div>
         ) : (
-          // Render content for non-authenticated users
           <div>
             <p>login</p>
             <select
@@ -175,47 +174,57 @@ const FavouriteArticleList: React.FC = () => {
       {state3.isLoading ? (
         <div>Loading...</div>
       ) : (
-        // {preferences.sports}
-        // Check if selectedSport is empty before rendering articles
-
         selectedSport && (
-          <div className="grid gap-4 grid-cols-4 mt-5">
+          <div className="w-full my-5  max-h-[1500px] relative overflow-y-scroll">
             {filteredArticles.map((article) => (
-              <div
-                key={article.id}
-                className="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-              >
-                <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">
-                  {article.sport.name}
-                </h5>
-                <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">
-                  {article.title}
-                </h5>
-                <p className="mb-2  font-medium tracking-tight text-gray-900 dark:text-white">
-                  {article.summary}
-                </p>
-                <p className="mb-2 font-medium tracking-tight text-gray-900 dark:text-white">
-                  {new Date(article.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "2-digit",
-                  })}
-                </p>
-                <h1>Teams</h1>
-                <ul>
-                  {article.teams.map((team: any) => (
-                    <li key={team.id}>{team.name}</li>
-                  ))}
-                </ul>
-                {/* <img src={article.thumbnail} alt="Image Description" /> */}
-                <button
-                  id="delete-member-btn"
-                  type="submit"
-                  // onClick={() => onSubmit({ id: article.id })}
-                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              <div>
+                {/* card */}
+                <div
+                  key={article.id}
+                  style={{ height: "700px", width: "280px" }}
+                  className="my-7 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 >
-                  read more
-                </button>
+                  <a href="#">
+                    <img
+                      className="rounded-t-lg h-80 w-96"
+                      src={article.thumbnail}
+                      alt=""
+                    />
+                  </a>
+                  <div className="p-5">
+                    <a href="#">
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {article.title}
+                      </h5>
+                    </a>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                      {article.summary}
+                    </p>
+                    <Link
+                      key={article.id}
+                      to={`/account/projects/${article.id}`}
+                    >
+                      <a className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Read more
+                        <svg
+                          className="w-3.5 h-3.5 ml-2"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 14 10"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9"
+                          />
+                        </svg>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

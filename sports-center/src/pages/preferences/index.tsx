@@ -1,10 +1,10 @@
-import SportList from "./PreferenceList";
+import PreferenceList from "./PreferenceList";
 
 const Preferences = () => {
   return (
     <>
       {/* <h2>Matches</h2> */}
-      <SportList />
+      <PreferenceList />
     </>
   );
 };

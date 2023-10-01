@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 export default function ArticleListItems() {
   const state: any = useArticleState();
 
-  // const dispatchArticle = useArticleDispatch();
-
   const { articles, isLoading, isError, errorMessage } = state;
   console.log(articles);
 

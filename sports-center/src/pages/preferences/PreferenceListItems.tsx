@@ -10,11 +10,11 @@ import { API_ENDPOINT } from "../../config/constants";
 import { useSportState } from "../../context/sports/context";
 import { useTeamState } from "../../context/teams/context";
 import { usePreferencesState } from "../../context/preferences/context";
-import { SubmitHandler } from "react-hook-form";
+// import { SubmitHandler } from "react-hook-form";
 import { useSportDispatch } from "../../context/sports/context";
 import { usePreferencesDispatch } from "../../context/preferences/context";
 
-export default function SportListItems() {
+export default function PreferenceListItems() {
   let [isOpen, setIsOpen] = useState(false);
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
@@ -23,16 +23,15 @@ export default function SportListItems() {
   const state2: any = useTeamState();
   const state3: any = usePreferencesState();
 
-  const dispatchSport = useSportDispatch();
-  const dispatchPrerences = usePreferencesDispatch();
+  // const dispatchSport = useSportDispatch();
+  // const dispatchPrerences = usePreferencesDispatch();
 
   const { sports, isLoading1, isError1, errorMessage1 } = state1;
   const { teams, isLoading, isError, errorMessage } = state2;
   const { preferences, isLoading2, isError2, errorMessage2 } = state3;
   useEffect(() => {
-    // Initialize selectedSports and selectedTeams based on user preferences
-    setSelectedSports(preferences.sports || []); // Initialize with the sports in preferences
-    setSelectedTeams(preferences.teams || []); // Initialize with the teams in preferences
+    setSelectedSports(preferences.sports || []);
+    setSelectedTeams(preferences.teams || []);
   }, [preferences]);
 
   if (sports.length === 0 && isLoading1) {
@@ -50,16 +49,14 @@ export default function SportListItems() {
   const user = localStorage.getItem("userData") ?? "";
   console.log("user", user);
 
-  // Include the updated preferences here based on user input
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const token = localStorage.getItem("authToken") ?? "";
     console.log("authToken", token);
 
-    // Gather the user-selected sports and teams based on your component's state
     const updatedPreferences = {
-      sports: selectedSports, // This should be an array of selected sports
-      teams: selectedTeams, // This should be an array of selected teams
+      sports: selectedSports,
+      teams: selectedTeams,
     };
 
     try {
@@ -75,16 +72,14 @@ export default function SportListItems() {
       });
 
       if (!response.ok) {
-        // Handle the case where the server returns an error
         const errorData = await response.json();
         throw new Error(`Failed to update preferences: ${errorData.message}`);
       }
 
-      // Handle success, e.g., show a success message to the user
       console.log("Preferences updated successfully!");
       console.log("selectedSports", updatedPreferences);
+      window.location.reload();
     } catch (error) {
-      // Handle network errors or other exceptions
       console.error("Failed to update preferences:", error.message);
     }
   };
@@ -130,7 +125,7 @@ export default function SportListItems() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
