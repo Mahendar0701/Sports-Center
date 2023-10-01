@@ -111,8 +111,7 @@ const FavouriteArticleList: React.FC = () => {
   return (
     <div>
       <div>
-        {preferences.sports.length > 0 ? true : false}
-        {isAuthenticated && preferences.sports ? (
+        {isAuthenticated ? (
           <div>
             <select
               value={selectedSport}
