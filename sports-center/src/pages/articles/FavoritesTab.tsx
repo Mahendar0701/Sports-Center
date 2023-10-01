@@ -409,51 +409,57 @@ const FavouriteArticleTabList: React.FC = () => {
   //   }
   // );
 
-  const filteredArticles = articles.filter((article) => {
-    if (selectedSport === "Trending" && !isAuthenticated) {
-      return true;
-    }
-    if (selectedSport === "Trending" && isAuthenticated) {
-      let sportMatch = false;
-      let teamMatch = false;
+  const filteredArticles = articles.filter(
+    (article: { sport: { name: string }; teams: any }) => {
+      if (selectedSport === "Trending" && !isAuthenticated) {
+        return true;
+      }
 
-      for (const preferenceSport of preferences.sports) {
-        if (article.sport.name === preferenceSport) {
-          sportMatch = true;
-          break;
+      if (selectedSport === "Trending" && isAuthenticated) {
+        let sportMatch = false;
+        let teamMatch = false;
+
+        // Ensure preferences.sports is an array before iterating
+        if (Array.isArray(preferences.sports)) {
+          for (const preferenceSport of preferences.sports) {
+            if (article.sport.name === preferenceSport) {
+              sportMatch = true;
+              break;
+            }
+          }
+        }
+
+        if (!sportMatch && Array.isArray(article.teams)) {
+          for (const team of article.teams) {
+            if (preferences.teams.indexOf(team.name) !== -1) {
+              teamMatch = true;
+              break;
+            }
+          }
+        }
+
+        return sportMatch || teamMatch;
+      }
+
+      if (!selectedSport) {
+        return true;
+      }
+
+      if (article.sport.name === selectedSport) {
+        return true;
+      }
+
+      if (Array.isArray(article.teams)) {
+        for (const team of article.teams) {
+          if (team.name === selectedSport) {
+            return true;
+          }
         }
       }
 
-      for (const team of article.teams) {
-        if (preferences.teams.includes(team.name)) {
-          teamMatch = true;
-          break;
-        }
-      }
-
-      return sportMatch || teamMatch;
+      return false;
     }
-
-    if (!selectedSport) {
-      return true;
-    }
-
-    let sportMatch = false;
-    let teamMatch = false;
-
-    if (article.sport.name === selectedSport) {
-      sportMatch = true;
-    }
-
-    for (const team of article.teams) {
-      if (team.name === selectedSport) {
-        teamMatch = true;
-        break;
-      }
-    }
-
-    return sportMatch || teamMatch;
-  });
+  );
 
   return (
     <div>
