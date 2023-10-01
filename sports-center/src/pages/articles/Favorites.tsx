@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 // import { API_ENDPOINT } from "../../config/constants";
 
@@ -55,7 +57,7 @@ const FavouriteArticleList: React.FC = () => {
   }, []);
 
   const { sports, isLoading, isError, errorMessage } = state1;
-  console.log("favorite sport", state1.sports);
+  console.log("favorite sport", sports);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -76,6 +78,8 @@ const FavouriteArticleList: React.FC = () => {
   }
   const { articles, isLoading2, isError2, errorMessage2 } = state3;
 
+  console.log(teams, articles);
+
   if (isLoading2) {
     return <span>Loading...</span>;
   }
@@ -94,10 +98,10 @@ const FavouriteArticleList: React.FC = () => {
   }
 
   const filteredArticles = state3.articles.filter(
-    (article) =>
+    (article: { sport: { name: any }; teams: any[] }) =>
       !selectedSport ||
       (article.sport.name === selectedSport && !selectedTeam) ||
-      article.teams.some((team) => team.name === selectedTeam)
+      article.teams.some((team: { name: string }) => team.name === selectedTeam)
   );
   console.log("sekected sports", selectedSport);
 
@@ -147,7 +151,7 @@ const FavouriteArticleList: React.FC = () => {
               <option value="">Select Favorite Sport</option>
               {state1.sports &&
                 state1.sports.length > 0 &&
-                state1.sports.map((sport: string, index: number) => (
+                state1.sports.map((sport: any, index: number) => (
                   <option key={index} value={sport.name}>
                     {sport.name}
                   </option>
@@ -161,7 +165,7 @@ const FavouriteArticleList: React.FC = () => {
               <option value="">Select Favorite Team</option>
               {state2.teams &&
                 state2.teams.length > 0 &&
-                state2.teams.map((team: string, index: number) => (
+                state2.teams.map((team: any, index: number) => (
                   <option key={index} value={team}>
                     {team.name}
                   </option>
@@ -176,7 +180,7 @@ const FavouriteArticleList: React.FC = () => {
       ) : (
         selectedSport && (
           <div className="w-full my-5  max-h-[1500px] relative overflow-y-scroll">
-            {filteredArticles.map((article) => (
+            {filteredArticles.map((article: any) => (
               <div>
                 {/* card */}
                 <div

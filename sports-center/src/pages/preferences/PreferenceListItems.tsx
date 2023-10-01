@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { API_ENDPOINT } from "../../config/constants";
@@ -11,8 +11,8 @@ import { useSportState } from "../../context/sports/context";
 import { useTeamState } from "../../context/teams/context";
 import { usePreferencesState } from "../../context/preferences/context";
 // import { SubmitHandler } from "react-hook-form";
-import { useSportDispatch } from "../../context/sports/context";
-import { usePreferencesDispatch } from "../../context/preferences/context";
+// import { useSportDispatch } from "../../context/sports/context";
+// import { usePreferencesDispatch } from "../../context/preferences/context";
 
 export default function PreferenceListItems() {
   let [isOpen, setIsOpen] = useState(false);
@@ -29,6 +29,7 @@ export default function PreferenceListItems() {
   const { sports, isLoading1, isError1, errorMessage1 } = state1;
   const { teams, isLoading, isError, errorMessage } = state2;
   const { preferences, isLoading2, isError2, errorMessage2 } = state3;
+
   useEffect(() => {
     setSelectedSports(preferences.sports || []);
     setSelectedTeams(preferences.teams || []);
@@ -44,6 +45,14 @@ export default function PreferenceListItems() {
 
   if (isError1 || isError) {
     return <span>{errorMessage1 || errorMessage}</span>;
+  }
+
+  if (isLoading2) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError2) {
+    return <span>{errorMessage2}</span>;
   }
 
   const user = localStorage.getItem("userData") ?? "";
@@ -79,7 +88,7 @@ export default function PreferenceListItems() {
       console.log("Preferences updated successfully!");
       console.log("selectedSports", updatedPreferences);
       window.location.reload();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to update preferences:", error.message);
     }
   };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import React, { useState } from "react";
 // import { API_ENDPOINT } from "../../config/constants";
 // import { useNavigate } from "react-router-dom";
@@ -108,7 +109,7 @@ const SigninForm = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { email, password, preferences } = data;
+    const { email, password } = data;
     try {
       const response = await fetch(`${API_ENDPOINT}/users/sign_in`, {
         method: "POST",

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import {
@@ -315,12 +317,16 @@ import {
   useArticleState,
 } from "../../context/articles/context";
 import { fetchArticles } from "../../context/articles/action";
-import { usePreferencesState } from "../../context/preferences/context";
+import {
+  usePreferencesDispatch,
+  usePreferencesState,
+} from "../../context/preferences/context";
 import { useSportDispatch, useSportState } from "../../context/sports/context";
 import { fetchSports } from "../../context/sports/action";
+import { fetchPreferences } from "../../context/preferences/action";
 
 const FavouriteArticleTabList: React.FC = () => {
-  const { preferences } = usePreferencesState();
+  // const { preferences } = usePreferencesState();
   const [selectedSport, setSelectedSport] = useState<string | null>("Trending"); // Set "Trending" as default
 
   const dispatchArticle = useArticleDispatch();
@@ -329,7 +335,8 @@ const FavouriteArticleTabList: React.FC = () => {
   const dispatchSport = useSportDispatch();
   const state1: any = useSportState();
 
-  const { articles, isLoading, isError, errorMessage } = state;
+  const dispatchPreferences = usePreferencesDispatch();
+  const state2: any = usePreferencesState();
 
   useEffect(() => {
     fetchArticles(dispatchArticle);
@@ -339,7 +346,40 @@ const FavouriteArticleTabList: React.FC = () => {
     fetchSports(dispatchSport);
   }, []);
 
+  useEffect(() => {
+    fetchPreferences(dispatchPreferences);
+  }, []);
+
+  const { articles, isLoading, isError, errorMessage } = state;
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>{errorMessage}</span>;
+  }
+
   const { sports, isLoading1, isError1, errorMessage1 } = state1;
+  console.log(sports);
+
+  if (isLoading1) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError1) {
+    return <span>{errorMessage1}</span>;
+  }
+
+  const { preferences, isLoading2, isError2, errorMessage2 } = state2;
+
+  if (isLoading2) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError2) {
+    return <span>{errorMessage2}</span>;
+  }
 
   const handleSportButtonClick = (sportName: string) => {
     setSelectedSport(sportName);
@@ -348,22 +388,26 @@ const FavouriteArticleTabList: React.FC = () => {
   const storedValue = localStorage.getItem("authenticated");
   const isAuthenticated = storedValue === "true";
 
-  const filteredArticles = articles.filter((article) => {
-    if (selectedSport === "Trending" && !isAuthenticated) {
-      return true;
-    }
-    if (selectedSport === "Trending" && isAuthenticated) {
+  const filteredArticles = articles.filter(
+    (article: { sport: { name: string }; teams: any[] }) => {
+      if (selectedSport === "Trending" && !isAuthenticated) {
+        return true;
+      }
+      if (selectedSport === "Trending" && isAuthenticated) {
+        return (
+          preferences.sports.includes(article.sport.name) ||
+          article.teams.some((team: any) =>
+            preferences.teams.includes(team.name)
+          )
+        );
+      }
       return (
-        preferences.sports.includes(article.sport.name) ||
-        article.teams.some((team) => preferences.teams.includes(team.name))
+        !selectedSport ||
+        article.sport.name === selectedSport ||
+        article.teams.some((team) => team.name === selectedSport)
       );
     }
-    return (
-      !selectedSport ||
-      article.sport.name === selectedSport ||
-      article.teams.some((team) => team.name === selectedSport)
-    );
-  });
+  );
 
   return (
     <div>
@@ -425,7 +469,7 @@ const FavouriteArticleTabList: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <div className="my-5 max-h-[1500px] relative overflow-y-scroll">
-          {filteredArticles.map((article) => (
+          {filteredArticles.map((article: any) => (
             <div
               key={article.id}
               style={{ height: "345px" }}

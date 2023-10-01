@@ -108,9 +108,9 @@ export default function MatchItems() {
                     <h4 className="text-lg font-semibold mb-2">Score:</h4>
                     <ul className="list-disc list-inside">
                       {Object.entries(state.matches.score).map(
-                        ([team, score]) => (
+                        ([team, scores]: [any, any]) => (
                           <li key={team} className="text-sm ml-2">
-                            {team}: {score}
+                            {team}: {scores}
                           </li>
                         )
                       )}

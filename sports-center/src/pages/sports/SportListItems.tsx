@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSportState } from "../../context/sports/context";
-import { useSportDispatch } from "../../context/sports/context";
+// import { useSportDispatch } from "../../context/sports/context";
 
 export default function SportListItems() {
   const state: any = useSportState();
 
-  const dispatchSport = useSportDispatch();
+  // const dispatchSport = useSportDispatch();
 
   const { sports, isLoading, isError, errorMessage } = state;
   console.log("sports", sports.sports);

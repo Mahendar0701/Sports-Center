@@ -1,7 +1,7 @@
 // import * as React from "react";
 import { Outlet } from "react-router-dom";
 import Appbar from "./Appbar";
-import { DefaultSidebar } from "./Sidebar";
+// import { DefaultSidebar } from "./Sidebar";
 
 const AccountLayout = () => {
   return (

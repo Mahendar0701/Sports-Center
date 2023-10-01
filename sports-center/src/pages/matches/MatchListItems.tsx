@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export default function MemberListItems() {
   const state: any = useMatchState();
   const [refresh, setRefresh] = useState(false);
+  console.log(refresh);
 
   const handleRefresh = () => {
     setRefresh((prevRefresh) => !prevRefresh);
@@ -27,7 +28,7 @@ export default function MemberListItems() {
   return (
     <>
       {matches
-        .filter((match) => match.isRunning) // Filter only ongoing matches
+        .filter((match: { isRunning: any }) => match.isRunning)
         .map((match: any) => (
           <div
             key={match.id}

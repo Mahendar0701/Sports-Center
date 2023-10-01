@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import React, { useState } from "react";
 // import { API_ENDPOINT } from "../../config/constants";
 // import { useNavigate } from "react-router-dom";
@@ -110,6 +111,7 @@ type Inputs = {
 
 const SignupForm = () => {
   const [error] = useState(null);
+  console.log(error);
 
   const navigate = useNavigate();
 
