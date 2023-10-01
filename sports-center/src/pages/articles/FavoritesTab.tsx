@@ -418,7 +418,6 @@ const FavouriteArticleTabList: React.FC = () => {
       let sportMatch = false;
       let teamMatch = false;
 
-      // Ensure preferences.sports is an array before iterating
       if (Array.isArray(preferences.sports)) {
         for (const preferenceSport of preferences.sports) {
           if (article.sport.name === preferenceSport) {
@@ -428,10 +427,8 @@ const FavouriteArticleTabList: React.FC = () => {
         }
       }
 
-      // Ensure article.teams is an array before iterating
       if (!sportMatch && Array.isArray(article.teams)) {
         for (const team of article.teams) {
-          // Ensure preferences.teams is an array before using indexOf
           if (
             Array.isArray(preferences.teams) &&
             preferences.teams.indexOf(team.name) !== -1
@@ -453,7 +450,6 @@ const FavouriteArticleTabList: React.FC = () => {
       return true;
     }
 
-    // Ensure article.teams is an array before iterating
     if (Array.isArray(article.teams)) {
       for (const team of article.teams) {
         if (team.name === selectedSport) {
