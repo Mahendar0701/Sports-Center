@@ -3,6 +3,10 @@
   command = "cd sports-center && npm install && npm run build"
   functions = "netlify/functions"
   publish = "sports-center/dist"
+[[redirects]]
+  from = "/home"  
+  to = "/index.html"
+  status = 200
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
@@ -10,6 +14,7 @@
   #  from = "/*"
   #  to = "/index.html"
   #  status = 200
+
 
   ## (optional) Settings for Netlify Dev
   ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection

@@ -129,7 +129,7 @@ const SigninForm = () => {
       localStorage.setItem("userData", JSON.stringify(data.user));
       localStorage.setItem("authenticated", "true");
       // return navigate("/dashboard");
-      navigate("/account");
+      navigate("/account/projects");
       window.location.reload();
     } catch (error) {
       console.error("Sign-in failed:", error);
