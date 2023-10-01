@@ -8,7 +8,7 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "/home"  
+from = "/*"  
 to = "/index.html"
 status = 200
 
