@@ -85,23 +85,25 @@ const ArticleTabList: React.FC = () => {
       }
 
       if (selectedSport === "Trending" && isAuthenticated) {
-        return (
-          preferences.sports.includes(article.sport.name) ||
-          article.teams.some((team) => preferences.teams.includes(team.name))
-        );
+        if (preferences.sports && preferences.sports.length > 0) {
+          return (
+            preferences.sports.includes(article.sport.name) ||
+            article.teams.some((team: any) =>
+              preferences.teams.includes(team.name)
+            )
+          );
+        } else {
+          return true;
+        }
       }
-      return (
-        !selectedSport ||
-        article.sport.name === selectedSport ||
-        article.teams.some((team) => team.name === selectedSport)
-      );
+      return !selectedSport || article.sport.name === selectedSport;
     }
   );
 
   return (
     <div>
       <div className="sticky">
-        {isAuthenticated ? (
+        {isAuthenticated && preferences.sports ? (
           <div>
             <button
               key="trending"

@@ -104,6 +104,7 @@ const FavouriteArticleList: React.FC = () => {
       article.teams.some((team: { name: string }) => team.name === selectedTeam)
   );
   console.log("sekected sports", selectedSport);
+  console.log("sekected teams", selectedTeam);
 
   const storedValue = localStorage.getItem("authenticated");
   const isAuthenticated = storedValue === "true";
@@ -111,7 +112,10 @@ const FavouriteArticleList: React.FC = () => {
   return (
     <div>
       <div>
-        {isAuthenticated ? (
+        {/* {preferences.sports.length} */}
+        {isAuthenticated &&
+        preferences.sports &&
+        preferences.sports.length > 0 ? (
           <div>
             <select
               value={selectedSport}
@@ -143,7 +147,6 @@ const FavouriteArticleList: React.FC = () => {
           </div>
         ) : (
           <div>
-            <p>login</p>
             <select
               value={selectedSport}
               onChange={(e) => setSelectedSport(e.target.value)}
@@ -166,7 +169,7 @@ const FavouriteArticleList: React.FC = () => {
               {state2.teams &&
                 state2.teams.length > 0 &&
                 state2.teams.map((team: any, index: number) => (
-                  <option key={index} value={team}>
+                  <option key={index} value={team.name}>
                     {team.name}
                   </option>
                 ))}
