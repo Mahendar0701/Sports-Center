@@ -409,57 +409,61 @@ const FavouriteArticleTabList: React.FC = () => {
   //   }
   // );
 
-  const filteredArticles = articles.filter(
-    (article: { sport: { name: string }; teams: any }) => {
-      if (selectedSport === "Trending" && !isAuthenticated) {
-        return true;
-      }
-
-      if (selectedSport === "Trending" && isAuthenticated) {
-        let sportMatch = false;
-        let teamMatch = false;
-
-        // Ensure preferences.sports is an array before iterating
-        if (Array.isArray(preferences.sports)) {
-          for (const preferenceSport of preferences.sports) {
-            if (article.sport.name === preferenceSport) {
-              sportMatch = true;
-              break;
-            }
-          }
-        }
-
-        if (!sportMatch && Array.isArray(article.teams)) {
-          for (const team of article.teams) {
-            if (preferences.teams.indexOf(team.name) !== -1) {
-              teamMatch = true;
-              break;
-            }
-          }
-        }
-
-        return sportMatch || teamMatch;
-      }
-
-      if (!selectedSport) {
-        return true;
-      }
-
-      if (article.sport.name === selectedSport) {
-        return true;
-      }
-
-      if (Array.isArray(article.teams)) {
-        for (const team of article.teams) {
-          if (team.name === selectedSport) {
-            return true;
-          }
-        }
-      }
-
-      return false;
+  const filteredArticles = articles.filter((article) => {
+    if (selectedSport === "Trending" && !isAuthenticated) {
+      return true;
     }
-  );
+
+    if (selectedSport === "Trending" && isAuthenticated) {
+      let sportMatch = false;
+      let teamMatch = false;
+
+      // Ensure preferences.sports is an array before iterating
+      if (Array.isArray(preferences.sports)) {
+        for (const preferenceSport of preferences.sports) {
+          if (article.sport.name === preferenceSport) {
+            sportMatch = true;
+            break;
+          }
+        }
+      }
+
+      // Ensure article.teams is an array before iterating
+      if (!sportMatch && Array.isArray(article.teams)) {
+        for (const team of article.teams) {
+          // Ensure preferences.teams is an array before using indexOf
+          if (
+            Array.isArray(preferences.teams) &&
+            preferences.teams.indexOf(team.name) !== -1
+          ) {
+            teamMatch = true;
+            break;
+          }
+        }
+      }
+
+      return sportMatch || teamMatch;
+    }
+
+    if (!selectedSport) {
+      return true;
+    }
+
+    if (article.sport.name === selectedSport) {
+      return true;
+    }
+
+    // Ensure article.teams is an array before iterating
+    if (Array.isArray(article.teams)) {
+      for (const team of article.teams) {
+        if (team.name === selectedSport) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  });
 
   return (
     <div>
