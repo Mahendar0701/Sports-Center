@@ -1,3 +1,24 @@
 [build]
   command = "npm run build"
   publish = "dist"  # Or the appropriate build output directory
+
+[[redirects]]
+from = "/signin"
+to = "/index.html"
+status = 200
+
+[[redirects]]
+from = "/home"  
+to = "/index.html"
+status = 200
+
+[[redirects]]
+from = "/tasks" 
+to = "/index.html"
+status = 200
+
+
+[[redirects]]
+from = "/notfound"  
+to = "/path/to/404/page"  
+status = 404
