@@ -469,7 +469,9 @@ const FavouriteArticleTabList: React.FC = () => {
   return (
     <div>
       <div className="sticky">
-        {isAuthenticated && preferences.sports ? (
+        {isAuthenticated &&
+        preferences.sports &&
+        preferences.sports.length > 0 ? (
           <div>
             <button
               key="trending"
