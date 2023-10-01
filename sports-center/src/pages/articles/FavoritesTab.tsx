@@ -393,7 +393,11 @@ const FavouriteArticleTabList: React.FC = () => {
       if (selectedSport === "Trending" && !isAuthenticated) {
         return true;
       }
-      if (selectedSport === "Trending" && isAuthenticated) {
+      if (
+        selectedSport === "Trending" &&
+        isAuthenticated &&
+        preferences.sports
+      ) {
         return (
           preferences.sports.includes(article.sport.name) ||
           article.teams.some((team: any) =>
