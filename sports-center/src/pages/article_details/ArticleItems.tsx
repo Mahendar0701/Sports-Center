@@ -110,9 +110,13 @@ export default function ArticleItems() {
                     <h5 className="text-xl font-bold">
                       {state.articles.title}
                     </h5>
-                    <p className="text-lg">{state.articles.content}</p>
+                    <p className="font-medium">{state.articles.summary}</p>
+                    <img
+                      src={state.articles.thumbnail}
+                      alt={state.articles.title}
+                      className="w-full h-96 object-cover rounded-lg"
+                    />
                     <p className="font-medium">
-                      Published Date:{" "}
                       {new Date(state.articles.date).toLocaleDateString(
                         "en-US",
                         {
@@ -122,17 +126,15 @@ export default function ArticleItems() {
                         }
                       )}
                     </p>
-                    <p className="text-gray-500">
-                      Sport: {state.articles.sport.name}
-                    </p>
-                    <p className="text-gray-500">
-                      Summary: {state.articles.summary}
-                    </p>
-                    <img
-                      src={state.articles.thumbnail}
-                      alt={state.articles.title}
-                      className="w-full h-96 object-cover rounded-lg"
-                    />
+                    <p className="text-lg">{state.articles.content}</p>
+                    {state.articles.teams.length > 0 ? (
+                      <ul className="text-gray-600">
+                        <li>Teams:</li>
+                        {state.articles.teams.map((team) => (
+                          <li>{team.name}</li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
                 ) : (
                   <div className="text-center text-red-600 dark:text-red-400">

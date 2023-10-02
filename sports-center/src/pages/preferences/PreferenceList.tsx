@@ -21,17 +21,15 @@ const PreferenceList: React.FC = () => {
   const dispatchPreferences = usePreferencesDispatch();
 
   useEffect(() => {
-    // And I'll pass the `dispatchProjects` to `fetchProjects` function.
     fetchSports(dispatchSport);
     fetchTeams(dispatchTeam);
     fetchPreferences(dispatchPreferences);
   }, []);
+  const isAuthenticated = !!localStorage.getItem("authToken");
   return (
     <div className="mx-5">
-      {/*To keep this file clean, I'll move all the logic to access the projects
-       from our app-state, to a new component ProjectListItems */}
-      <PreferenceListItems />
-      {/* <MatchSlider /> */}
+      {/* <PreferenceListItems /> */}
+      {isAuthenticated && <PreferenceListItems />}
       <br />
     </div>
   );

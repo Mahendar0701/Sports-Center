@@ -20,7 +20,7 @@ const MatchList: React.FC = () => {
     fetchPreferences(dispatchPreferences);
   }, []);
   return (
-    <div className="grid gap-4 grid-cols-4 mt-5 mr-52">
+    <div className="flex flex-row ">
       <MatchListItems />
       {/* <MatchSlider /> */}
       <br />

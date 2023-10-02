@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useContext, Fragment } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition, Switch } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/images/logo.jpg";
@@ -9,8 +9,7 @@ import Preferences from "../../pages/preferences";
 
 const userNavigation = [{ name: "Profile", href: "#" }];
 
-const storedValue = localStorage.getItem("authenticated");
-const isAuthenticated = storedValue === "true"; // Convert back to boolean
+const isAuthenticated = !!localStorage.getItem("authToken");
 
 if (!isAuthenticated) {
   userNavigation.push({ name: "Sign in", href: "/signin" });
@@ -25,7 +24,15 @@ const classNames = (...classes: string[]): string =>
 const Appbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [enabled, setEnabled] = useState(theme === "dark");
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("authToken")
+  );
+
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem("authToken"));
+  }, []);
 
   const toggleTheme = () => {
     let newTheme = "";
@@ -95,7 +102,7 @@ const Appbar = () => {
                     />
                   </Switch>
 
-                  {isAuthenticated ? (
+                  {/* {isAuthenticated ? (
                     <div className="">
                       <Preferences />
                     </div>
@@ -110,7 +117,25 @@ const Appbar = () => {
                         </button>
                       </Link>
                     </div>
-                  )}
+                  )} */}
+                  {isAuthenticated ? (
+                    <div className="">
+                      <Preferences />
+                    </div>
+                  ) : null}
+                  {!isAuthenticated ? (
+                    <div className="mx-3">
+                      <Link to={`/signin`}>
+                        <button
+                          type="submit"
+                          className={`inline-flex justify-center rounded-md border bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+                        >
+                          Sign in
+                        </button>
+                      </Link>
+                    </div>
+                  ) : null}
+
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">

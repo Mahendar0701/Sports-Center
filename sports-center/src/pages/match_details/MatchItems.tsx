@@ -38,31 +38,6 @@ export default function MatchItems() {
     return <span>{errorMessage}</span>;
   }
 
-  //   return (
-  //     <>
-  //       <div className="member block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-  //         <h2 className="text-xl font-medium text-gray-900 dark:text-white mb-4">
-  //           {state.matches.name}
-  //         </h2>
-  //         {/* <p className="text-gray-700 dark:text-gray-300 mb-4">
-  //             {state.matches.content}
-  //           </p>
-  //           <p className="text-gray-500 mb-2">
-  //             Published Date: {new Date(state.articles.date).toLocaleDateString()}
-  //           </p>
-  //           <p className="text-gray-500 mb-2">Sport: {state.articles.sport.name}</p>
-  //           <p className="text-gray-500 mb-4">Summary: {state.articles.summary}</p>
-  //           <div className="thumbnail-container">
-  //             <img
-  //               src={state.articles.thumbnail}
-  //               alt="Thumbnail"
-  //               className="thumbnail-image"
-  //             />
-  //           </div> */}
-  //       </div>
-  //     </>
-  //   );
-
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

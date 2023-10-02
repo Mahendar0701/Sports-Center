@@ -385,8 +385,7 @@ const FavouriteArticleTabList: React.FC = () => {
     setSelectedSport(sportName);
   };
 
-  const storedValue = localStorage.getItem("authenticated");
-  const isAuthenticated = storedValue === "true";
+  const isAuthenticated = !!localStorage.getItem("authToken");
 
   const filteredArticles = articles.filter(
     (article: { sport: { name: string }; teams: any[] }) => {
@@ -395,7 +394,11 @@ const FavouriteArticleTabList: React.FC = () => {
       }
 
       if (selectedSport === "Trending" && isAuthenticated) {
-        if (preferences.sports && preferences.sports.length > 0) {
+        if (
+          preferences &&
+          preferences.sports &&
+          preferences.sports.length > 0
+        ) {
           return (
             preferences.sports.includes(article.sport.name) ||
             article.teams.some((team: any) =>
@@ -410,66 +413,11 @@ const FavouriteArticleTabList: React.FC = () => {
     }
   );
 
-  // const filteredArticles = articles.filter((article) => {
-  //   if (selectedSport === "Trending" && !isAuthenticated) {
-  //     return true;
-  //   }
-
-  //   if (selectedSport === "Trending" && isAuthenticated) {
-  //     let sportMatch = false;
-  //     let teamMatch = false;
-
-  //     if (Array.isArray(preferences.sports)) {
-  //       for (const preferenceSport of preferences.sports) {
-  //         if (article.sport.name === preferenceSport) {
-  //           sportMatch = true;
-  //           break;
-  //         }
-  //       }
-  //     }
-
-  //     if (!sportMatch && Array.isArray(article.teams)) {
-  //       for (const team of article.teams) {
-  //         if (
-  //           Array.isArray(preferences.teams) &&
-  //           preferences.teams.indexOf(team.name) !== -1
-  //         ) {
-  //           teamMatch = true;
-  //           break;
-  //         }
-  //       }
-  //     }
-
-  //     return sportMatch || teamMatch;
-  //   }
-
-  //   if (!selectedSport) {
-  //     return true;
-  //   }
-
-  //   if (article.sport.name === selectedSport) {
-  //     return true;
-  //   }
-
-  //   // if (isAuthenticated && (!preferences.sports || !preferences.teams)) {
-  //   //   return true;
-  //   // }
-
-  //   if (Array.isArray(article.teams)) {
-  //     for (const team of article.teams) {
-  //       if (team.name === selectedSport) {
-  //         return true;
-  //       }
-  //     }
-  //   }
-
-  //   return false;
-  // });
-
   return (
     <div>
       <div className="sticky">
         {isAuthenticated &&
+        preferences &&
         preferences.sports &&
         preferences.sports.length > 0 ? (
           <div>
@@ -482,7 +430,8 @@ const FavouriteArticleTabList: React.FC = () => {
             >
               Trending
             </button>
-            {preferences.sports &&
+            {preferences &&
+              preferences.sports &&
               preferences.sports.map((sport: any, index: number) => (
                 <button
                   key={index}

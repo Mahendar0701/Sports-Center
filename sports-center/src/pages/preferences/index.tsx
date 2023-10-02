@@ -1,11 +1,8 @@
 import PreferenceList from "./PreferenceList";
 
 const Preferences = () => {
-  return (
-    <>
-      {/* <h2>Matches</h2> */}
-      <PreferenceList />
-    </>
-  );
+  const isAuthenticated = !!localStorage.getItem("authToken");
+
+  return <>{isAuthenticated && <PreferenceList />}</>;
 };
 export default Preferences;

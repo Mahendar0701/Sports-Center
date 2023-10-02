@@ -17,6 +17,7 @@ import Favourites from "../pages/favourites";
 // import FavouriteArticleTabList from "../pages/articles/FavoritesTab";
 import Dashboard from "../pages/dashboard";
 import ArticleTabList from "../pages/dashboard/ArticleContainerTab";
+import Articles from "../pages/articles";
 // import Article from "../pages/article_detail/Article";
 
 const router = createBrowserRouter([
@@ -79,6 +80,7 @@ const router = createBrowserRouter([
       {
         path: "articles",
         element: <ArticleTabList />,
+        // element: <Articles />,
       },
     ],
   },

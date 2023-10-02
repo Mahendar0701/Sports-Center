@@ -1,5 +1,6 @@
 import FavouriteArticleList from "../articles/Favorites";
 import FavouriteArticleTabList from "../articles/FavoritesTab";
+import FavouriteArticleFilter from "../favourites/FavouriteArticleFilter";
 import MatchList from "../matches/MatchList";
 
 const Dashboard = () => {
@@ -8,7 +9,7 @@ const Dashboard = () => {
       <h2>Matches</h2>
       <MatchList />
       <div className="flex justify-between">
-        <h2 className="text-2xl font-medium tracking-tight">Articles</h2>
+        <h2 className="text-2xl font-medium tracking-tight">Your News</h2>
       </div>
       <div className="flex flex-wrap">
         <div className="w-full  md:w-3/4 max-h-[1500px]   ">
@@ -18,7 +19,8 @@ const Dashboard = () => {
         </div>
         <div className="w-full px-2  md:w-1/4 max-h-[1500px] ">
           <h2>Favourites</h2>
-          <FavouriteArticleList />
+          {/* <FavouriteArticleList /> */}
+          <FavouriteArticleFilter />
         </div>
       </div>
     </>

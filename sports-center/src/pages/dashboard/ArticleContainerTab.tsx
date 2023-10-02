@@ -75,8 +75,7 @@ const ArticleTabList: React.FC = () => {
     setSelectedSport(sportName);
   };
 
-  const storedValue = localStorage.getItem("authenticated");
-  const isAuthenticated = storedValue === "true";
+  const isAuthenticated = !!localStorage.getItem("authToken");
 
   const filteredArticles = articles.filter(
     (article: { sport: { name: string }; teams: any[] }) => {
@@ -85,7 +84,11 @@ const ArticleTabList: React.FC = () => {
       }
 
       if (selectedSport === "Trending" && isAuthenticated) {
-        if (preferences.sports && preferences.sports.length > 0) {
+        if (
+          preferences &&
+          preferences.sports &&
+          preferences.sports.length > 0
+        ) {
           return (
             preferences.sports.includes(article.sport.name) ||
             article.teams.some((team: any) =>
@@ -103,7 +106,7 @@ const ArticleTabList: React.FC = () => {
   return (
     <div>
       <div className="sticky">
-        {isAuthenticated && preferences.sports ? (
+        {isAuthenticated && preferences ? (
           <div>
             <button
               key="trending"

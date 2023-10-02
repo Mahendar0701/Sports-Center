@@ -24,7 +24,7 @@ import { useSportDispatch, useSportState } from "../../context/sports/context";
 import { useTeamDispatch, useTeamState } from "../../context/teams/context";
 import { Link } from "react-router-dom";
 
-const FavouriteArticleList: React.FC = () => {
+const FavouriteArticleFilter: React.FC = () => {
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedTeam, setSelectedTeam] = useState<string>("");
   // const [selectedTeam, setSelectedTeam] = useState<string>("");
@@ -242,4 +242,4 @@ const FavouriteArticleList: React.FC = () => {
   );
 };
 
-export default FavouriteArticleList;
+export default FavouriteArticleFilter;

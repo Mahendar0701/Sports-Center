@@ -31,8 +31,10 @@ export default function PreferenceListItems() {
   const { preferences, isLoading2, isError2, errorMessage2 } = state3;
 
   useEffect(() => {
-    setSelectedSports(preferences.sports || []);
-    setSelectedTeams(preferences.teams || []);
+    if (preferences && preferences.sports && preferences.teams) {
+      setSelectedSports(preferences.sports || []);
+      setSelectedTeams(preferences.teams || []);
+    }
   }, [preferences]);
 
   if (sports.length === 0 && isLoading1) {
@@ -143,33 +145,35 @@ export default function PreferenceListItems() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <form onSubmit={handleSubmit}>
-                      {preferences.sports}
-                      {sports.map((sport: any) => (
-                        <div key={sport.id} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={`sport-${sport.id}`}
-                            name={`sport-${sport.id}`}
-                            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                            value={sport.name}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              setSelectedSports((prev) =>
-                                prev.includes(value)
-                                  ? prev.filter((item) => item !== value)
-                                  : [...prev, value]
-                              );
-                            }}
-                            checked={selectedSports.includes(sport.name)}
-                          />
-                          <label
-                            htmlFor={`sport-${sport.id}`}
-                            className="ml-2 text-gray-700"
-                          >
-                            {sport.name}
-                          </label>
-                        </div>
-                      ))}
+                      {/* {preferences.sports} */}
+                      {sports &&
+                        sports.length > 0 &&
+                        sports.map((sport: any) => (
+                          <div key={sport.id} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={`sport-${sport.id}`}
+                              name={`sport-${sport.id}`}
+                              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                              value={sport.name}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                setSelectedSports((prev) =>
+                                  prev.includes(value)
+                                    ? prev.filter((item) => item !== value)
+                                    : [...prev, value]
+                                );
+                              }}
+                              checked={selectedSports.includes(sport.name)}
+                            />
+                            <label
+                              htmlFor={`sport-${sport.id}`}
+                              className="ml-2 text-gray-700"
+                            >
+                              {sport.name}
+                            </label>
+                          </div>
+                        ))}
                       <h1>Favourite Teams</h1>
 
                       {teams.map((team: any) => (

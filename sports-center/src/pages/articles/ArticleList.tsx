@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { fetchArticles } from "../../context/articles/action";
 import { useArticleDispatch } from "../../context/articles/context";
 
-// import ArticleListItems from "./ArticleListItems";
-import ArticleListItems from "./ArticleCard";
+import ArticleListItems from "./ArticleListItems";
+// import ArticleListItems from "./ArticleCard";
 const ArticleList: React.FC = () => {
   const dispatchArticle = useArticleDispatch();
 
