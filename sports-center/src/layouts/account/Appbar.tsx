@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/theme";
 import Preferences from "../../pages/preferences";
 
-const userNavigation = [{ name: "Profile", href: "#" }];
+let userNavigation = [{ name: "Profile", href: "#" }];
 
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");
@@ -27,9 +27,11 @@ const Appbar = () => {
 
   if (!isAuthenticated) {
     userNavigation.push({ name: "Sign in", href: "/signin" });
+    userNavigation = userNavigation.filter((item) => item.name !== "Sign out");
   }
   if (isAuthenticated) {
     userNavigation.push({ name: "Sign out", href: "/logout" });
+    userNavigation = userNavigation.filter((item) => item.name !== "Sign in");
   }
 
   const toggleTheme = () => {
