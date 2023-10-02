@@ -9,15 +9,6 @@ import Preferences from "../../pages/preferences";
 
 const userNavigation = [{ name: "Profile", href: "#" }];
 
-const isAuthenticated = !!localStorage.getItem("authToken");
-
-if (!isAuthenticated) {
-  userNavigation.push({ name: "Sign in", href: "/signin" });
-}
-if (isAuthenticated) {
-  userNavigation.push({ name: "Sign out", href: "/logout" });
-}
-
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");
 
@@ -33,6 +24,13 @@ const Appbar = () => {
   useEffect(() => {
     setIsAuthenticated(!!localStorage.getItem("authToken"));
   }, []);
+
+  if (!isAuthenticated) {
+    userNavigation.push({ name: "Sign in", href: "/signin" });
+  }
+  if (isAuthenticated) {
+    userNavigation.push({ name: "Sign out", href: "/logout" });
+  }
 
   const toggleTheme = () => {
     let newTheme = "";
