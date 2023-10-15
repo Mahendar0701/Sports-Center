@@ -30,6 +30,8 @@ export default function PreferenceListItems() {
   const { teams, isLoading, isError, errorMessage } = state2;
   const { preferences, isLoading2, isError2, errorMessage2 } = state3;
 
+  console.log("preferences in form", preferences);
+
   useEffect(() => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedSports(preferences.sports || []);
@@ -90,12 +92,6 @@ export default function PreferenceListItems() {
       console.log("Preferences updated successfully!");
       console.log("selectedSports", updatedPreferences);
       window.location.reload();
-      // useEffect(() => {
-      //   // fetchSports(dispatchSport);
-      //   fetchArticles(dispatchArticles);
-      //   fetchMatches(dispatchSport);
-      //   fetchPreferences(dispatchSport);
-      // }, []);
     } catch (error: any) {
       console.error("Failed to update preferences:", error.message);
     }

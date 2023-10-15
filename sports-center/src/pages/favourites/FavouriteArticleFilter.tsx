@@ -91,14 +91,58 @@ const FavouriteArticleFilter: React.FC = () => {
     return <span>{errorMessage3}</span>;
   }
 
-  const filteredArticles = state3.articles.filter(
-    (article: { sport: { name: any }; teams: any[] }) =>
-      !selectedSport ||
-      (article.sport.name === selectedSport && !selectedTeam) ||
-      article.teams.some((team: { name: string }) => team.name === selectedTeam)
-  );
+  // const filteredArticles = state3.articles.filter(
+  //   (article: { sport: { name: any }; teams: any[] }) =>
+  //     !selectedSport ||
+  //     (article.sport.name === selectedSport &&
+  //       !selectedTeam &&
+  //       article.teams.some(
+  //         (team: { name: string }) => team.name === selectedTeam
+  //       ))
+  // );
+  const filteredArticles = state3.articles.filter((article: any) => {
+    const sportMatches = !selectedSport || article.sport.name === selectedSport;
+    const teamMatches =
+      !selectedTeam ||
+      article.teams.some(
+        (team: { name: string }) => team.name === selectedTeam
+      );
+    return sportMatches && teamMatches;
+  });
+
   console.log("sekected sports", selectedSport);
   console.log("sekected teams", selectedTeam);
+
+  // teamsofspoorts
+
+  const getTeamsOfSelectedSport = () => {
+    if (!selectedSport) return [];
+
+    const teamsOfSelectedSport = state2.teams.filter(
+      (team: any) => team.plays === selectedSport
+    );
+
+    return teamsOfSelectedSport.map((team: any) => team.name);
+  };
+
+  const teamNames = getTeamsOfSelectedSport();
+
+  // teamsofprefereences
+
+  const getPreferenceTeamsOfSelectedSport = () => {
+    if (!selectedSport) return [];
+
+    return preferences.teams.filter((team) => {
+      const teamDetails = teams.find((t) => t.name === team);
+      return teamDetails && teamDetails.plays === selectedSport;
+    });
+  };
+
+  let prefereTeamOfSelectedSport = getPreferenceTeamsOfSelectedSport();
+
+  if (prefereTeamOfSelectedSport.length == 0) {
+    prefereTeamOfSelectedSport = getTeamsOfSelectedSport();
+  }
 
   const isAuthenticated = !!localStorage.getItem("authToken");
 
@@ -130,14 +174,19 @@ const FavouriteArticleFilter: React.FC = () => {
               onChange={(e) => setSelectedTeam(e.target.value)}
             >
               <option value="">Select Favorite Team</option>
-              {preferences &&
+              {/* {preferences &&
                 preferences.teams &&
                 preferences.teams.length > 0 &&
                 preferences.teams.map((team: string, index: number) => (
                   <option key={index} value={team}>
                     {team}
                   </option>
-                ))}
+                ))} */}
+              {prefereTeamOfSelectedSport.map((team: any, index: number) => (
+                <option key={index} value={team}>
+                  {team}
+                </option>
+              ))}
             </select>
           </div>
         ) : (
@@ -161,13 +210,18 @@ const FavouriteArticleFilter: React.FC = () => {
               onChange={(e) => setSelectedTeam(e.target.value)}
             >
               <option value="">Select Favorite Team</option>
-              {state2.teams &&
+              {/* {state2.teams &&
                 state2.teams.length > 0 &&
                 state2.teams.map((team: any, index: number) => (
                   <option key={index} value={team.name}>
                     {team.name}
                   </option>
-                ))}
+                ))} */}
+              {teamNames.map((team: any, index: number) => (
+                <option key={index} value={team}>
+                  {team}
+                </option>
+              ))}
             </select>
           </div>
         )}

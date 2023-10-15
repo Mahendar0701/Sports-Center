@@ -11,7 +11,7 @@ import ArticleDetails from "../article_details/ArticleDetailsContainer";
 
 export default function ArticleListItems() {
   const [selectedSport, setSelectedSport] = useState<string | null>("Trending");
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);
@@ -207,7 +207,7 @@ export default function ArticleListItems() {
                     ></path>
                   </svg>
                 </button>
-                {/* <Transition appear show={isOpen} as={Fragment}>
+                <Transition appear show={isOpen} as={Fragment}>
                   <Dialog
                     as="div"
                     className="relative z-10"
@@ -245,6 +245,7 @@ export default function ArticleListItems() {
                             <div className="mt-2">
                               <h1>Hiii</h1>
                               Articles details
+                              {/* <ArticleDetails /> */}
                               {article.summary}
                             </div>
                           </Dialog.Panel>
@@ -252,7 +253,7 @@ export default function ArticleListItems() {
                       </div>
                     </div>
                   </Dialog>
-                </Transition> */}
+                </Transition>
                 {/* </Link> */}
               </div>
             </div>

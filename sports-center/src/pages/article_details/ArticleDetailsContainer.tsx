@@ -40,7 +40,16 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-const ArticleDetails: React.FC = () => {
+interface ArticleDetailsProps {
+  articleSelectId: number | null;
+  isOpen: boolean;
+  closeModal: () => void;
+}
+const ArticleDetails: React.FC<ArticleDetailsProps> = ({
+  articleSelectId,
+  isOpen,
+  closeModal,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Set isOpen to true when component mounts
@@ -59,7 +68,8 @@ const ArticleDetails: React.FC = () => {
     isLoading: false,
   });
 
-  const { articleID } = useParams();
+  //   const { articleID } = useParams();
+  const articleID = articleSelectId;
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -76,6 +86,10 @@ const ArticleDetails: React.FC = () => {
           },
         });
 
+        if (isOpen) {
+          fetchArticle();
+        }
+
         const data = await response.json();
         console.log(data);
         dispatch({ type: "API_CALL_END", payload: data });
@@ -86,7 +100,7 @@ const ArticleDetails: React.FC = () => {
     };
 
     fetchArticle();
-  }, [articleID]);
+  }, [articleID, isOpen]);
 
   //   return (
   //     <div>
