@@ -90,16 +90,6 @@ const FavouriteArticleFilter: React.FC = () => {
   if (isError3) {
     return <span>{errorMessage3}</span>;
   }
-
-  // const filteredArticles = state3.articles.filter(
-  //   (article: { sport: { name: any }; teams: any[] }) =>
-  //     !selectedSport ||
-  //     (article.sport.name === selectedSport &&
-  //       !selectedTeam &&
-  //       article.teams.some(
-  //         (team: { name: string }) => team.name === selectedTeam
-  //       ))
-  // );
   const filteredArticles = state3.articles.filter((article: any) => {
     const sportMatches = !selectedSport || article.sport.name === selectedSport;
     const teamMatches =

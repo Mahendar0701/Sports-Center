@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { useArticleState } from "../../context/article_details/context";
-// import { useArticleState } from "../../context/articles/context";
-// import { useArticleDispatch } from "../../context/article_details/context";
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
 
@@ -24,16 +22,12 @@ export default function ArticleItems() {
 
   const state: any = useArticleState();
 
-  //   const dispatchArticle = useArticleDispatch();
-
   const { articles, isLoading, isError, errorMessage } = state;
   console.log("article detailss", articles);
-  // console.log(user);
 
   if (articles.length === 0 && isLoading) {
     return <span>Loading...</span>;
   }
-
   if (isError) {
     return <span>{errorMessage}</span>;
   }
@@ -56,7 +50,7 @@ export default function ArticleItems() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+              <Dialog.Overlay className="fixed inset-0 opacity-30" />
             </Transition.Child>
 
             <Transition.Child
