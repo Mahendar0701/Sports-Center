@@ -1,6 +1,6 @@
-import Article from "./Article";
+import ArticleDetail from "./ArticleDetail";
 
 const ArticleDetailsIndex = () => {
-  return <Article />;
+  return <ArticleDetail />;
 };
 export default ArticleDetailsIndex;

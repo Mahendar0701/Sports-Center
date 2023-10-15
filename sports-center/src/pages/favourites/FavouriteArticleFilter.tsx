@@ -1,17 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-// import { API_ENDPOINT } from "../../config/constants";
-
-// import { fetchSports } from "../../context/sports/action";
-// import { useSportDispatch, useSportState } from "../../context/sports/context";
 import { fetchArticles } from "../../context/articles/action";
 import {
   useArticleDispatch,
   useArticleState,
 } from "../../context/articles/context";
-// import { fetchTeams } from "../../context/teams/action";
-// import { useTeamDispatch, useTeamState } from "../../context/teams/context";
 
 import { fetchPreferences } from "../../context/preferences/action";
 import {

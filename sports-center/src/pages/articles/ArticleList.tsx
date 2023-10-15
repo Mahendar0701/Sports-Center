@@ -3,12 +3,30 @@ import { fetchArticles } from "../../context/articles/action";
 import { useArticleDispatch } from "../../context/articles/context";
 
 import ArticleListItems from "./ArticleListItems";
+import { fetchSports } from "../../context/sports/action";
+import { fetchPreferences } from "../../context/preferences/action";
+import { usePreferencesDispatch } from "../../context/preferences/context";
+import { useSportDispatch } from "../../context/sports/context";
 // import ArticleListItems from "./ArticleCard";
 const ArticleList: React.FC = () => {
   const dispatchArticle = useArticleDispatch();
+  const dispatchSport = useSportDispatch();
+  const dispatchPreferences = usePreferencesDispatch();
+
+  // useEffect(() => {
+  //   fetchArticles(dispatchArticle);
+  // }, []);
 
   useEffect(() => {
     fetchArticles(dispatchArticle);
+  }, [dispatchArticle]);
+
+  useEffect(() => {
+    fetchSports(dispatchSport);
+  }, []);
+
+  useEffect(() => {
+    fetchPreferences(dispatchPreferences);
   }, []);
   return (
     // <div className="grid gap-4 grid-cols-1 mt-5 mr-52">

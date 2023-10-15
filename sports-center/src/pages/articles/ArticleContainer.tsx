@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useMatchDispatch } from "../../context/matches/context";
 import { fetchMatches } from "../../context/matches/action";
 
-const ProjectContainer = () => {
+const ArticleContainer = () => {
   const articleDispatch = useArticleDispatch();
   const matcheDispatch = useMatchDispatch();
   useEffect(() => {
@@ -15,4 +15,4 @@ const ProjectContainer = () => {
   return <Outlet />;
 };
 
-export default ProjectContainer;
+export default ArticleContainer;

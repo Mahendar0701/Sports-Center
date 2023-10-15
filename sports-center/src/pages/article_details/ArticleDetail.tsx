@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import { getArticle } from "../../context/article_details/action";
 import { useArticleDispatch } from "../../context/article_details/context";
 
-import ArticleItems from "./ArticleItems";
+import ArticleItems from "./ArticleDetailsItems";
 import { useParams } from "react-router-dom";
-const Article: React.FC = () => {
+const ArticleDetail: React.FC = () => {
   const dispatchArticle = useArticleDispatch();
   const { articleID } = useParams();
 
@@ -17,4 +17,4 @@ const Article: React.FC = () => {
   }, [dispatchArticle, articleID]);
   return <ArticleItems />;
 };
-export default Article;
+export default ArticleDetail;

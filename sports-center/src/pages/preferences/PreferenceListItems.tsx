@@ -90,6 +90,12 @@ export default function PreferenceListItems() {
       console.log("Preferences updated successfully!");
       console.log("selectedSports", updatedPreferences);
       window.location.reload();
+      // useEffect(() => {
+      //   // fetchSports(dispatchSport);
+      //   fetchArticles(dispatchArticles);
+      //   fetchMatches(dispatchSport);
+      //   fetchPreferences(dispatchSport);
+      // }, []);
     } catch (error: any) {
       console.error("Failed to update preferences:", error.message);
     }

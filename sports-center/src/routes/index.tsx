@@ -79,8 +79,7 @@ const router = createBrowserRouter([
       },
       {
         path: "articles",
-        element: <ArticleTabList />,
-        // element: <Articles />,
+        element: <Articles />,
       },
     ],
   },
