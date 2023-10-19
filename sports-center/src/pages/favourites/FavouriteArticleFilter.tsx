@@ -103,7 +103,7 @@ const FavouriteArticleFilter: React.FC = () => {
   console.log("sekected sports", selectedSport);
   console.log("sekected teams", selectedTeam);
 
-  // teamsofspoorts
+  // teamsofsports
 
   const getTeamsOfSelectedSport = () => {
     if (!selectedSport) return [];
@@ -128,38 +128,47 @@ const FavouriteArticleFilter: React.FC = () => {
     });
   };
 
-  let prefereTeamOfSelectedSport = getPreferenceTeamsOfSelectedSport();
+  const isAuthenticated = !!localStorage.getItem("authToken");
+  if (isAuthenticated) {
+    let prefereTeamOfSelectedSport = getPreferenceTeamsOfSelectedSport();
 
-  if (prefereTeamOfSelectedSport.length == 0) {
-    prefereTeamOfSelectedSport = getTeamsOfSelectedSport();
+    if (prefereTeamOfSelectedSport.length == 0) {
+      prefereTeamOfSelectedSport = getTeamsOfSelectedSport();
+    }
   }
 
-  const isAuthenticated = !!localStorage.getItem("authToken");
-
   return (
-    <div>
-      <div>
+    <div className=" p-3 rounded-xl  bg-white border border-gray-200 shadow-sm">
+      <div className=" bg-white">
         {isAuthenticated &&
         preferences &&
         preferences.sports &&
         preferences.sports.length > 0 ? (
-          <div>
+          <div className=" ">
             <select
+              className="border p-2 px-12 m-2 rounded-md bg-gray-100 "
               value={selectedSport}
               onChange={(e) => setSelectedSport(e.target.value)}
             >
-              <option value="">Select Favorite Sport</option>
+              <option className="border p-3 bg-gray-100" value="">
+                Select Favorite Sport
+              </option>
               {preferences &&
                 preferences.sports &&
                 preferences.sports.length > 0 &&
                 preferences.sports.map((sport: string, index: number) => (
-                  <option key={index} value={sport}>
+                  <option
+                    className="border p-3 bg-gray-100"
+                    key={index}
+                    value={sport}
+                  >
                     {sport}
                   </option>
                 ))}
             </select>
             <br />
             <select
+              className="border p-2 px-12 m-2 rounded-md bg-gray-100 "
               value={selectedTeam}
               onChange={(e) => setSelectedTeam(e.target.value)}
             >
@@ -173,7 +182,7 @@ const FavouriteArticleFilter: React.FC = () => {
                   </option>
                 ))} */}
               {prefereTeamOfSelectedSport.map((team: any, index: number) => (
-                <option key={index} value={team}>
+                <option className="bg-gray-100" key={index} value={team}>
                   {team}
                 </option>
               ))}
@@ -182,24 +191,34 @@ const FavouriteArticleFilter: React.FC = () => {
         ) : (
           <div>
             <select
+              className="border p-2 px-12 m-2 rounded-md bg-gray-100 "
               value={selectedSport}
               onChange={(e) => setSelectedSport(e.target.value)}
             >
-              <option value="">Select Favorite Sport</option>
+              <option className="bg-gray-100" value="">
+                Select Favorite Sport
+              </option>
               {state1.sports &&
                 state1.sports.length > 0 &&
                 state1.sports.map((sport: any, index: number) => (
-                  <option key={index} value={sport.name}>
+                  <option
+                    className="bg-gray-100"
+                    key={index}
+                    value={sport.name}
+                  >
                     {sport.name}
                   </option>
                 ))}
             </select>
             <br />
             <select
+              className="border p-2 px-12 m-2 rounded-md bg-gray-100 "
               value={selectedTeam}
               onChange={(e) => setSelectedTeam(e.target.value)}
             >
-              <option value="">Select Favorite Team</option>
+              <option className="bg-gray-100" value="">
+                Select Favorite Team
+              </option>
               {/* {state2.teams &&
                 state2.teams.length > 0 &&
                 state2.teams.map((team: any, index: number) => (
@@ -208,7 +227,7 @@ const FavouriteArticleFilter: React.FC = () => {
                   </option>
                 ))} */}
               {teamNames.map((team: any, index: number) => (
-                <option key={index} value={team}>
+                <option className="bg-gray-100" key={index} value={team}>
                   {team}
                 </option>
               ))}

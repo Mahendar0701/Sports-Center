@@ -21,7 +21,7 @@ interface Article {
 // Now, I'll rename the interface in the `ProjectList` component from `State`
 // to `ProjectsState`. And I'll also export the interface.
 
-export interface ArticleState {
+export interface ArticleDetailsState {
   articles: Article;
   isLoading: boolean;
   isError: boolean;
@@ -37,14 +37,14 @@ export interface ArticleState {
 // Then I'll define a new type called `ProjectsActions`
 // for all possible combimations of action objects.
 
-export type ArticleActions =
-  | { type: "FETCH_ARTICLES_REQUEST" }
-  | { type: "FETCH_ARTICLES_SUCCESS"; payload: Article }
-  | { type: "FETCH_ARTICLES_FAILURE"; payload: string };
+export type ArticleDetailsActions =
+  | { type: "FETCH_ARTICLESDetails_REQUEST" }
+  | { type: "FETCH_ARTICLESDetails_SUCCESS"; payload: Article }
+  | { type: "FETCH_ARTICLESDetails_FAILURE"; payload: string };
 //   | { type: "ADD_MEMBERS_SUCCESS"; payload: Article }
 //   | { type: "DELETE_MEMBER_SUCCESS"; payload: Article[] };
 
-export const initialState: ArticleState = {
+export const initialState: ArticleDetailsState = {
   articles: {
     id: 0,
     sport: {
@@ -66,22 +66,22 @@ export const initialState: ArticleState = {
 // Then we will pass the `initialState` object to the `state` of reducer function.
 
 export const reducer = (
-  state: ArticleState = initialState,
-  action: ArticleActions
-): ArticleState => {
+  state: ArticleDetailsState = initialState,
+  action: ArticleDetailsActions
+): ArticleDetailsState => {
   switch (action.type) {
-    case "FETCH_ARTICLES_REQUEST":
+    case "FETCH_ARTICLESDetails_REQUEST":
       return {
         ...state,
         isLoading: true,
       };
-    case "FETCH_ARTICLES_SUCCESS":
+    case "FETCH_ARTICLESDetails_SUCCESS":
       return {
         ...state,
         isLoading: false,
         articles: action.payload,
       };
-    case "FETCH_ARTICLES_FAILURE":
+    case "FETCH_ARTICLESDetails_FAILURE":
       return {
         ...state,
         isLoading: false,
@@ -94,4 +94,4 @@ export const reducer = (
   }
 };
 
-export type ArticleDispatch = React.Dispatch<ArticleActions>;
+export type ArticleDetailsDispatch = React.Dispatch<ArticleDetailsActions>;

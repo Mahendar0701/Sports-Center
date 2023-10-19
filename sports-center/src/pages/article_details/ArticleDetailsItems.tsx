@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { useArticleState } from "../../context/article_details/context";
+import { useArticleDetailsState } from "../../context/article_details/context";
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
 
@@ -20,7 +20,7 @@ export default function ArticleItems() {
     navigate("../../");
   }
 
-  const state: any = useArticleState();
+  const state: any = useArticleDetailsState();
 
   const { articles, isLoading, isError, errorMessage } = state;
   console.log("article detailss", articles);

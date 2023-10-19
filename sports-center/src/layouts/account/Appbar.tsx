@@ -49,19 +49,27 @@ const Appbar = () => {
     { name: "Dashboard", href: "/account/projects", current: false },
     { name: "News", href: "/account/articles", current: false },
     { name: "Scores", href: "/account/members", current: false },
-    { name: "Favourites", href: "/account/favourites", current: false },
+    // { name: "Favourites", href: "/account/favourites", current: false },
   ];
 
   return (
     <>
-      <Disclosure as="nav" className="border-b border-slate-200">
+      <Disclosure as="nav" className="border-b border-slate-200 ">
         {() => (
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <img className="h-10" src={Logo} alt="Smarter Tasks" />
+                <div className="flex items-center">
+                  <h1 className="flex-shrink-0 text-3xl font-semibold font-sans text-gray-900 dark:text-white">
+                    Sports-Center
+                  </h1>
+                  <img
+                    className="h-11 ml-2 bg-transparent"
+                    src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?w=740&t=st=1697467632~exp=1697468232~hmac=468d315330fdba8c3a10df360b6d730b61853c243f411d1ccd5a057aac6d5d87"
+                    alt="Smarter Tasks"
+                  />
                 </div>
+
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => {

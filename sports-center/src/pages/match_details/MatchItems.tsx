@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { useMatchState } from "../../context/match_details/context";
+import { useMatchDetailsState } from "../../context/match_details/context";
 // import { useMatchDispatch } from "../../context/match_details/context";
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
@@ -22,7 +22,7 @@ export default function MatchItems() {
     navigate("../../");
   }
 
-  const state: any = useMatchState();
+  const state: any = useMatchDetailsState();
 
   //   const dispatchArticle = useArticleDispatch();
 

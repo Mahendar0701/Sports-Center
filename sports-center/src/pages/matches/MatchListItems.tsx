@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMatchState } from "../../context/matches/context";
 // import { useMatchDispatch } from "../../context/matches/context";
 import { Link } from "react-router-dom";
+import { getMatchDetails } from "../../context/match_details/action";
+import {
+  useMatchDetailsDispatch,
+  useMatchDetailsState,
+} from "../../context/match_details/context";
 
 export default function MemberListItems() {
   const state: any = useMatchState();
+  const matchDetailState: any = useMatchDetailsState();
   const [refresh, setRefresh] = useState(false);
   console.log(refresh);
 
@@ -16,7 +22,57 @@ export default function MemberListItems() {
   };
 
   const { matches, isLoading, isError, errorMessage } = state;
-  // console.log(user);
+  const { matches1, isLoading1, isError1, errorMessage1 } = matchDetailState;
+  // console.log("matches1", matches1);
+
+  const matchIds = state.matches.map((match) => match.id);
+  console.log("Match IDs:", matchIds);
+
+  const dispatchMatchDetails = useMatchDetailsDispatch();
+
+  const fetchMatchDetails = async (matchId) => {
+    try {
+      const matchDetail = await getMatchDetails(dispatchMatchDetails, matchId);
+      console.log("Match Details for ID", matchId, ":", matchDetail);
+      return matchDetail;
+    } catch (error) {
+      console.error("Error fetching match details for ID", matchId, ":", error);
+      throw error; // Re-throw the error to be caught by Promise.all
+    }
+  };
+
+  const fetchAllMatchDetails = async () => {
+    try {
+      const matchDetailsPromises = matchIds.map((matchId) =>
+        fetchMatchDetails(matchId)
+      );
+      const matchDetails = await Promise.all(matchDetailsPromises);
+      console.log("Match Details:", matchDetails);
+    } catch (error) {
+      console.error("Error fetching match details:", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (matchIds.length > 0) {
+  //     fetchAllMatchDetails();
+  //   }
+  // }, [dispatchMatchDetails, matchIds]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-constant-condition
+    if ("4" == "4") {
+      const details = getMatchDetails(dispatchMatchDetails, "4");
+      console.log("use effect", details);
+    }
+  }, [dispatchMatchDetails, "4"]);
+
+  // useEffect(() => {
+  //   matchIds.forEach((matchId) => {
+  //     console.log("Fetching details for match ID:", matchId);
+  //     getMatchDetails(dispatchMatchDetails, matchId);
+  //   });
+  // }, [dispatchMatchDetails, matchIds]);
 
   if (matches.length === 0 && isLoading) {
     return <span>Loading...</span>;

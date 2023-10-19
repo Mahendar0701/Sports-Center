@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useArticleState } from "../../context/articles/context";
 // import { useArticleDispatch } from "../../context/articles/context";
 import { Link } from "react-router-dom";
@@ -8,6 +8,11 @@ import { usePreferencesState } from "../../context/preferences/context";
 import { useSportState } from "../../context/sports/context";
 import { Dialog, Transition } from "@headlessui/react";
 import ArticleDetails from "../article_details/ArticleDetailsContainer";
+import {
+  useArticleDetailsDispatch,
+  useArticleDetailsState,
+} from "../../context/article_details/context";
+import { getArticleDetails } from "../../context/article_details/action";
 
 export default function ArticleListItems() {
   const [selectedSport, setSelectedSport] = useState<string | null>("Trending");
@@ -27,9 +32,25 @@ export default function ArticleListItems() {
   };
   console.log("selectedArticleId", selectedArticleId);
 
+  const dispatchArticleDetails = useArticleDetailsDispatch();
+  const articleID = selectedArticleId;
+
+  useEffect(() => {
+    if (articleID) {
+      getArticleDetails(dispatchArticleDetails, articleID);
+      console.log("useeffect", articleID);
+      setIsOpen(true);
+    }
+  }, [dispatchArticleDetails, articleID]);
+
+  const articleDetailState: any = useArticleDetailsState();
   const state: any = useArticleState();
   const state1: any = useSportState();
   const state2: any = usePreferencesState();
+
+  const { articlesDetails, isLoading3, isError3, errorMessage3 } =
+    articleDetailState;
+  console.log("articlesDetails", articleDetailState.articles);
 
   const { articles, isLoading, isError, errorMessage } = state;
   console.log(articles);
@@ -102,7 +123,7 @@ export default function ArticleListItems() {
             <button
               key="trending"
               onClick={() => handleSportButtonClick("Trending")}
-              className={`py-2 px-4 mx-3 border ${
+              className={`py-2 px-4 mx-3 border  rounded-xl ${
                 selectedSport === "Trending" ? "bg-gray-200" : "bg-gray-100"
               }`}
             >
@@ -114,7 +135,7 @@ export default function ArticleListItems() {
                 <button
                   key={index}
                   onClick={() => handleSportButtonClick(sport)}
-                  className={`py-2 px-4 mx-3 border ${
+                  className={`py-2 px-4 mx-3 border rounded-xl ${
                     selectedSport === sport ? "bg-gray-200" : "bg-gray-100"
                   }`}
                 >
@@ -154,7 +175,7 @@ export default function ArticleListItems() {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <div className="my-5 max-h-[1500px] relative overflow-y-scroll">
+        <div className="my-5 max-h-[1500px] relative overflow-y-scroll bg-gray-100 p-5 rounded-xl">
           {filteredArticles.map((article: any) => (
             <div
               key={article.id}
@@ -190,8 +211,8 @@ export default function ArticleListItems() {
                 <button
                   className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button"
-                  onClick={openModal}
-                  // onClick={() => handleReadMoreClick(article.id)}
+                  // onClick={openModal}
+                  onClick={() => handleReadMoreClick(article.id)}
                 >
                   Read More
                   <svg
@@ -218,42 +239,96 @@ export default function ArticleListItems() {
                 <Transition appear show={isOpen} as={Fragment}>
                   <Dialog
                     as="div"
-                    className="relative z-10"
+                    className="fixed inset-0 z-10 overflow-y-auto"
                     onClose={closeModal}
                   >
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <div className="fixed inset-0  bg-opacity-100" />
-                    </Transition.Child>
-                    <div className="fixed inset-0 overflow-y-auto">
-                      <div className="flex min-h-full items-center justify-center p-4 text-center">
-                        <Transition.Child
-                          as={Fragment}
-                          enter="ease-out duration-300"
-                          enterFrom="opacity-0 scale-95"
-                          enterTo="opacity-100 scale-100"
-                          leave="ease-in duration-200"
-                          leaveFrom="opacity-100 scale-100"
-                          leaveTo="opacity-0 scale-95"
-                        >
-                          <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-sm transition-all">
-                            <Dialog.Title
-                              as="h3"
-                              className="text-lg font-medium leading-6 text-gray-900"
+                    <div className="flex items-center justify-center min-h-screen px-4 text-center">
+                      <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                      >
+                        <Dialog.Overlay className="fixed inset-0 opacity-30" />
+                      </Transition.Child>
+
+                      <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <div className="inline-block w-full max-w-4xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-sm rounded-2xl">
+                          <Dialog.Title
+                            as="h3"
+                            className="text-2xl font-bold text-gray-900 mb-4"
+                          >
+                            {articleDetailState.articles.sport.name}
+                          </Dialog.Title>
+
+                          {articleDetailState.isLoading ? (
+                            <div className="text-center text-gray-700 dark:text-gray-300">
+                              Loading...
+                            </div>
+                          ) : articleDetailState.articles ? (
+                            <div className="grid gap-4 mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                              <h5 className="text-xl font-bold">
+                                {articleDetailState.articles.title}
+                              </h5>
+                              <p className="font-medium">
+                                {articleDetailState.articles.summary}
+                              </p>
+                              <img
+                                src={articleDetailState.articles.thumbnail}
+                                alt={articleDetailState.articles.title}
+                                className="w-full h-96 object-cover rounded-lg"
+                              />
+                              <p className="font-medium">
+                                {new Date(
+                                  articleDetailState.articles.date
+                                ).toLocaleDateString("en-US", {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "2-digit",
+                                })}
+                              </p>
+                              <p className="text-lg">
+                                {articleDetailState.articles.content}
+                              </p>
+                              {articleDetailState.articles.teams.length > 0 ? (
+                                <ul className="text-gray-600">
+                                  <li>Teams:</li>
+                                  {articleDetailState.articles.teams.map(
+                                    (team) => (
+                                      <li>{team.name}</li>
+                                    )
+                                  )}
+                                </ul>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <div className="text-center text-red-600 dark:text-red-400">
+                              Failed to load article.
+                            </div>
+                          )}
+
+                          <div className="mt-6 flex justify-center">
+                            <button
+                              type="button"
+                              className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                              onClick={closeModal}
                             >
-                              Favorite Sport
-                            </Dialog.Title>
-                            <div className="mt-2">dialogue box</div>
-                          </Dialog.Panel>
-                        </Transition.Child>
-                      </div>
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </Transition.Child>
                     </div>
                   </Dialog>
                 </Transition>

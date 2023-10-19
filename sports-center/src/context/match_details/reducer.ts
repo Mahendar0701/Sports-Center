@@ -16,21 +16,21 @@ interface Match {
   teams: Team[];
 }
 
-export interface MatchState {
+export interface MatchDetailsState {
   matches: Match;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 }
 
-export type MatchActions =
-  | { type: "FETCH_MATCHES_REQUEST" }
-  | { type: "FETCH_MATCHES_SUCCESS"; payload: Match }
-  | { type: "FETCH_MATCHES_FAILURE"; payload: string };
+export type MatchDetailsActions =
+  | { type: "FETCH_MATCHESDetails_REQUEST" }
+  | { type: "FETCH_MATCHESDetails_SUCCESS"; payload: Match }
+  | { type: "FETCH_MATCHESDetails_FAILURE"; payload: string };
 //   | { type: "ADD_MEMBERS_SUCCESS"; payload: Article }
 //   | { type: "DELETE_MEMBER_SUCCESS"; payload: Article[] };
 
-export const initialState: MatchState = {
+export const initialState: MatchDetailsState = {
   matches: {
     id: 0,
     name: "",
@@ -51,22 +51,22 @@ export const initialState: MatchState = {
 // Then we will pass the `initialState` object to the `state` of reducer function.
 
 export const reducer = (
-  state: MatchState = initialState,
-  action: MatchActions
-): MatchState => {
+  state: MatchDetailsState = initialState,
+  action: MatchDetailsActions
+): MatchDetailsState => {
   switch (action.type) {
-    case "FETCH_MATCHES_REQUEST":
+    case "FETCH_MATCHESDetails_REQUEST":
       return {
         ...state,
         isLoading: true,
       };
-    case "FETCH_MATCHES_SUCCESS":
+    case "FETCH_MATCHESDetails_SUCCESS":
       return {
         ...state,
         isLoading: false,
         matches: action.payload,
       };
-    case "FETCH_MATCHES_FAILURE":
+    case "FETCH_MATCHESDetails_FAILURE":
       return {
         ...state,
         isLoading: false,

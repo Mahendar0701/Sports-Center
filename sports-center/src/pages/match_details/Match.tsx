@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import { getMatch } from "../../context/match_details/action";
-import { useMatchDispatch } from "../../context/match_details/context";
+import { getMatchDetails } from "../../context/match_details/action";
+import { useMatchDetailsDispatch } from "../../context/match_details/context";
 
 import MatchItems from "./MatchItems";
 import { useParams } from "react-router-dom";
 const Match: React.FC = () => {
-  const dispatchMatch = useMatchDispatch();
+  const dispatchMatchDetails = useMatchDetailsDispatch();
   const { matchID } = useParams();
 
   useEffect(() => {
     if (matchID) {
-      getMatch(dispatchMatch, matchID);
+      getMatchDetails(dispatchMatchDetails, matchID);
     }
-  }, [dispatchMatch, matchID]);
+  }, [dispatchMatchDetails, matchID]);
   return (
     <div>
       <MatchItems />
