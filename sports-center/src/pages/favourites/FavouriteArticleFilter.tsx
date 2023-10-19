@@ -129,11 +129,14 @@ const FavouriteArticleFilter: React.FC = () => {
   };
 
   const isAuthenticated = !!localStorage.getItem("authToken");
-  if (isAuthenticated) {
-    let prefereTeamOfSelectedSport = getPreferenceTeamsOfSelectedSport();
 
-    if (prefereTeamOfSelectedSport.length == 0) {
-      prefereTeamOfSelectedSport = getTeamsOfSelectedSport();
+  let preferTeamOfSelectedSport = [];
+
+  if (isAuthenticated) {
+    preferTeamOfSelectedSport = getPreferenceTeamsOfSelectedSport();
+
+    if (preferTeamOfSelectedSport.length === 0) {
+      preferTeamOfSelectedSport = getTeamsOfSelectedSport();
     }
   }
 
@@ -181,7 +184,7 @@ const FavouriteArticleFilter: React.FC = () => {
                     {team}
                   </option>
                 ))} */}
-              {prefereTeamOfSelectedSport.map((team: any, index: number) => (
+              {preferTeamOfSelectedSport.map((team: any, index: number) => (
                 <option className="bg-gray-100" key={index} value={team}>
                   {team}
                 </option>
