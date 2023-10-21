@@ -1,8 +1,6 @@
-import ArticleDetail from "./ArticleDetail";
-import ArticleDetails from "./ArticleDetailsContainer";
+import ArticleDetails from "./ArticleDetails";
 
 const ArticleDetailsIndex = () => {
-  return <ArticleDetail />;
-  // return <ArticleDetails />;
+  return <ArticleDetails />;
 };
 export default ArticleDetailsIndex;

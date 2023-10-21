@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/theme";
 import Preferences from "../../pages/preferences";
 
-let userNavigation = [{ name: "Profile", href: "#" }];
+let userNavigation = [{ name: "Sign in", href: "/signin" }];
 
 const classNames = (...classes: string[]): string =>
   classes.filter(Boolean).join(" ");
@@ -26,12 +26,18 @@ const Appbar = () => {
   }, []);
 
   if (!isAuthenticated) {
-    userNavigation.push({ name: "Sign in", href: "/signin" });
-    userNavigation = userNavigation.filter((item) => item.name !== "Sign out");
+    userNavigation = [{ name: "Sign in", href: "/signin" }];
+    // userNavigation.push({ name: "Sign in", href: "/signin" });
+    // userNavigation = userNavigation.filter((item) => item.name !== "Sign out");
   }
   if (isAuthenticated) {
-    userNavigation.push({ name: "Sign out", href: "/logout" });
-    userNavigation = userNavigation.filter((item) => item.name !== "Sign in");
+    userNavigation = [
+      { name: "Profile", href: "/account/profile" },
+      { name: "Change Password", href: "/account/changePassword" },
+      { name: "Sign out", href: "/logout" },
+    ];
+    // userNavigation.push({ name: "Sign out", href: "/logout" });
+    // userNavigation = userNavigation.filter((item) => item.name !== "Sign in");
   }
 
   const toggleTheme = () => {
@@ -46,10 +52,10 @@ const Appbar = () => {
   };
 
   const navigation = [
-    { name: "Dashboard", href: "/account/projects", current: false },
+    { name: "Dashboard", href: "/account", current: false },
     { name: "News", href: "/account/articles", current: false },
-    { name: "Scores", href: "/account/members", current: false },
-    // { name: "Favourites", href: "/account/favourites", current: false },
+    { name: "Scores", href: "/account/matches", current: false },
+    { name: "Favourites", href: "/account/favourites", current: false },
   ];
 
   return (

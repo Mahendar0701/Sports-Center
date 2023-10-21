@@ -1,13 +1,8 @@
-import FavouriteArticleFilter from "./FavouriteArticleFilter";
-
-const Favourites = () => {
+const Favorites = () => {
   return (
     <>
-      <div className="">
-        {/* <FavouriteArticleList /> */}
-        <FavouriteArticleFilter />
-      </div>
+      <div className="">Favorites</div>
     </>
   );
 };
-export default Favourites;
+export default Favorites;

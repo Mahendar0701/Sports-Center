@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { useArticleDetailsState } from "../../context/article_details/context";
 import { Transition, Dialog } from "@headlessui/react";
@@ -8,7 +6,6 @@ import { useState, useEffect, Fragment } from "react";
 export default function ArticleItems() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Set isOpen to true when component mounts
   useEffect(() => {
     setIsOpen(true);
   }, []);
@@ -20,13 +17,11 @@ export default function ArticleItems() {
     navigate("../../");
   }
 
-  const state: any = useArticleDetailsState();
-
-  const { articles, isLoading, isError, errorMessage } = state;
-  console.log("article detailss", articles);
+  const articleDetailsState: any = useArticleDetailsState();
+  const { articles, isLoading, isError, errorMessage } = articleDetailsState;
 
   if (articles.length === 0 && isLoading) {
-    return <span>Loading...</span>;
+    return <span>Loading article...</span>;
   }
   if (isError) {
     return <span>{errorMessage}</span>;
@@ -67,39 +62,42 @@ export default function ArticleItems() {
                   as="h3"
                   className="text-2xl font-bold text-gray-900 mb-4"
                 >
-                  {state.articles.sport.name}
+                  {articleDetailsState.articles.sport.name}
                 </Dialog.Title>
 
-                {state.isLoading ? (
+                {articleDetailsState.isLoading ? (
                   <div className="text-center text-gray-700 dark:text-gray-300">
-                    Loading...
+                    Loading article...
                   </div>
-                ) : state.articles ? (
+                ) : articleDetailsState.articles ? (
                   <div className="grid gap-4 mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <h5 className="text-xl font-bold">
-                      {state.articles.title}
+                      {articleDetailsState.articles.title}
                     </h5>
-                    <p className="font-medium">{state.articles.summary}</p>
+                    <p className="font-medium">
+                      {articleDetailsState.articles.summary}
+                    </p>
                     <img
-                      src={state.articles.thumbnail}
-                      alt={state.articles.title}
+                      src={articleDetailsState.articles.thumbnail}
+                      alt={articleDetailsState.articles.title}
                       className="w-full h-96 object-cover rounded-lg"
                     />
                     <p className="font-medium">
-                      {new Date(state.articles.date).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )}
+                      {new Date(
+                        articleDetailsState.articles.date
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                      })}
                     </p>
-                    <p className="text-lg">{state.articles.content}</p>
-                    {state.articles.teams.length > 0 ? (
+                    <p className="text-lg">
+                      {articleDetailsState.articles.content}
+                    </p>
+                    {articleDetailsState.articles.teams.length > 0 ? (
                       <ul className="text-gray-600">
                         <li>Teams:</li>
-                        {state.articles.teams.map((team) => (
+                        {articleDetailsState.articles.teams.map((team) => (
                           <li>{team.name}</li>
                         ))}
                       </ul>
