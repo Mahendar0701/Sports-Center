@@ -1,10 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useArticleDetailsState } from "../../context/article_details/context";
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
+import { API_ENDPOINT } from "../../config/constants";
+import { usePreferencesState } from "../../context/preferences/context";
 
 export default function ArticleItems() {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedSports, setSelectedSports] = useState<string[]>([]);
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<string[]>([]);
+  const [selectedMatch, setSelectedMatch] = useState<string[]>([]);
 
   useEffect(() => {
     setIsOpen(true);
@@ -17,15 +23,64 @@ export default function ArticleItems() {
     navigate("../../");
   }
 
-  const articleDetailsState: any = useArticleDetailsState();
-  const { articles, isLoading, isError, errorMessage } = articleDetailsState;
+  const { articleID } = useParams();
 
-  if (articles.length === 0 && isLoading) {
+  const articleDetailsState: any = useArticleDetailsState();
+  const preferencesState: any = usePreferencesState();
+  const { articles, isLoading, isError, errorMessage } = articleDetailsState;
+  const { preferences, isLoading2, isError2, errorMessage2 } = preferencesState;
+
+  useEffect(() => {
+    if (preferences && preferences.sports && preferences.teams) {
+      setSelectedSports(preferences.sports || []);
+      setSelectedTeams(preferences.teams || []);
+      setSelectedArticle(preferences.articles || []);
+      setSelectedMatch(preferences.matches || []);
+    }
+  }, [preferences]);
+
+  if (articles.length === 0 && isLoading && isLoading2) {
     return <span>Loading article...</span>;
   }
-  if (isError) {
+  if (isError || isError2) {
     return <span>{errorMessage}</span>;
   }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const token = localStorage.getItem("authToken") ?? "";
+
+    const updatedPreferences = {
+      sports: selectedSports,
+      teams: selectedTeams,
+      articles: selectedArticle,
+      matches: selectedMatch,
+    };
+
+    try {
+      const response = await fetch(`${API_ENDPOINT}/user/preferences`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          favourites: updatedPreferences,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to save : ${errorData.message}`);
+      }
+
+      console.log("saved successfully!");
+      console.log("updatedPreferences", updatedPreferences);
+      // window.location.reload();
+    } catch (error: any) {
+      console.error("Failed to save :", error.message);
+    }
+  };
 
   return (
     <>
@@ -117,6 +172,28 @@ export default function ArticleItems() {
                   >
                     Close
                   </button>
+                  <form>
+                    <input
+                      type="checkbox"
+                      value={articleDetailsState.articles.id}
+                      className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setSelectedArticle((prev) =>
+                          prev.includes(value)
+                            ? prev.filter((item) => item !== value)
+                            : [...prev, value]
+                        );
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onClick={handleSubmit}
+                    >
+                      save
+                    </button>
+                  </form>
                 </div>
               </div>
             </Transition.Child>

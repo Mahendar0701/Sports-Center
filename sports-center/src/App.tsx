@@ -2,6 +2,7 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import router from "./routes";
+import { ToastContainer } from "react-toastify";
 
 import { ArticleProvider } from "./context/articles/context";
 import { MatchProvider } from "./context/matches/context";
@@ -22,6 +23,7 @@ const App = () => {
                 <ArticleDetailProvider>
                   <MatchDetailProvider>
                     <RouterProvider router={router} />
+                    <ToastContainer />
                   </MatchDetailProvider>
                 </ArticleDetailProvider>
               </PreferencesProvider>

@@ -67,7 +67,7 @@ const Appbar = () => {
               <div className="flex items-center">
                 <div className="flex items-center">
                   <h1 className="flex-shrink-0 text-3xl font-semibold font-sans text-gray-900 dark:text-white">
-                    Sports-Center
+                    Sports Center
                   </h1>
                   <img
                     className="h-11 ml-2 bg-transparent"

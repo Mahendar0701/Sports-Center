@@ -138,11 +138,13 @@ export default function ArticleListItems() {
               className="my-5 relative flex w-full max-w-[76rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
             >
               <div className="relative m-0 w-80 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-                <img
-                  src={article.thumbnail}
-                  alt="image"
-                  className="h-full w-80 object-cover"
-                />
+                <Link to={`/account/articles/${article.id}`}>
+                  <img
+                    src={article.thumbnail}
+                    alt="image"
+                    className="h-full w-80 object-cover"
+                  />
+                </Link>
               </div>
               <div className="p-5 relative">
                 <p className="absolute bottom-5 left-4 font-semibold inset-x-4">

@@ -1,7 +1,9 @@
+import PasswordForm from "./PasswordForm";
+
 const ChangePassword = () => {
   return (
     <>
-      <div className="">ChangePassword</div>
+      <PasswordForm />
     </>
   );
 };

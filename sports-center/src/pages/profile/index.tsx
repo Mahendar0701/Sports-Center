@@ -1,7 +1,9 @@
+import ProfileContainer from "./ProfileContainer";
+
 const Profile = () => {
   return (
     <>
-      <div className="">Profile</div>
+      <ProfileContainer />
     </>
   );
 };
