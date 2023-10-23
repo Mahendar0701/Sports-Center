@@ -97,6 +97,7 @@ export default function MatchItems() {
       });
     }
   };
+  const isAuthenticated = !!localStorage.getItem("authToken");
 
   return (
     <>
@@ -176,41 +177,49 @@ export default function MatchItems() {
                 </div>
               )}
 
-              <div className="mt-4 text-center">
+              <div className="mt-4 flex justify-center">
                 <form>
-                  <label className="inline-flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      value={state.matches.id}
-                      className="text-blue-500 focus:ring-blue-500"
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        setSelectedMatch((prev) =>
-                          prev.includes(value)
-                            ? prev.filter((item) => item !== value)
-                            : [...prev, value]
-                        );
-                      }}
-                      checked={selectedMatch.some(
-                        (id) => id == state.matches.id
-                      )}
-                    />
-                    <span>Save Match</span>
-                  </label>
-                  <button
-                    type="button"
-                    className="mx-5 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={handleSubmit}
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModal}
-                  >
-                    Close
-                  </button>
+                  <div className="flex">
+                    {isAuthenticated && (
+                      <div>
+                        <label>
+                          <input
+                            type="checkbox"
+                            value={state.matches.id}
+                            className="text-blue-500 focus:ring-blue-500"
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              setSelectedMatch((prev) =>
+                                prev.includes(value)
+                                  ? prev.filter((item) => item !== value)
+                                  : [...prev, value]
+                              );
+                            }}
+                            checked={selectedMatch.some(
+                              (id) => id == state.matches.id
+                            )}
+                          />
+                          <span>Save Match</span>
+                        </label>
+                        <button
+                          type="button"
+                          className="mx-5 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                          onClick={handleSubmit}
+                        >
+                          Save
+                        </button>
+                      </div>
+                    )}
+                    <div>
+                      <button
+                        type="button"
+                        className="mx-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                        onClick={closeModal}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>

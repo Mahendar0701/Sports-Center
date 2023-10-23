@@ -88,6 +88,8 @@ export default function ArticleItems() {
     }
   };
 
+  const isAuthenticated = !!localStorage.getItem("authToken");
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -172,39 +174,47 @@ export default function ArticleItems() {
 
                 <div className="mt-6 flex justify-center">
                   <form>
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={articleDetailsState.articles.id}
-                        className="rounded text-blue-500 focus:ring-blue-500 m-2"
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setSelectedArticle((prev) =>
-                            prev.includes(value)
-                              ? prev.filter((item) => item !== value)
-                              : [...prev, value]
-                          );
-                        }}
-                        checked={selectedArticle.some(
-                          (id) => id == articleDetailsState.articles.id
-                        )}
-                      />
-                      <span>Save Article</span>
-                    </label>
-                    <button
-                      type="button"
-                      className="m-2 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onClick={handleSubmit}
-                    >
-                      save
-                    </button>
-                    <button
-                      type="button"
-                      className="m-3 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
+                    <div className="flex">
+                      {isAuthenticated && (
+                        <div>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value={articleDetailsState.articles.id}
+                              className="rounded text-blue-500 focus:ring-blue-500 m-2"
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                setSelectedArticle((prev) =>
+                                  prev.includes(value)
+                                    ? prev.filter((item) => item !== value)
+                                    : [...prev, value]
+                                );
+                              }}
+                              checked={selectedArticle.some(
+                                (id) => id == articleDetailsState.articles.id
+                              )}
+                            />
+                            <span>Save Article</span>
+                          </label>
+                          <button
+                            type="button"
+                            className="m-2 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                            onClick={handleSubmit}
+                          >
+                            save
+                          </button>
+                        </div>
+                      )}
+                      <div>
+                        <button
+                          type="button"
+                          className="m-2 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                          onClick={closeModal}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
