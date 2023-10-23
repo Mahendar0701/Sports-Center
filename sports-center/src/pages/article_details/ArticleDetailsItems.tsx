@@ -1,9 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useArticleDetailsState } from "../../context/article_details/context";
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
 import { API_ENDPOINT } from "../../config/constants";
 import { usePreferencesState } from "../../context/preferences/context";
+import { toast } from "react-toastify";
 
 export default function ArticleItems() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,10 +24,9 @@ export default function ArticleItems() {
     navigate("../../");
   }
 
-  const { articleID } = useParams();
-
   const articleDetailsState: any = useArticleDetailsState();
   const preferencesState: any = usePreferencesState();
+
   const { articles, isLoading, isError, errorMessage } = articleDetailsState;
   const { preferences, isLoading2, isError2, errorMessage2 } = preferencesState;
 
@@ -65,7 +65,7 @@ export default function ArticleItems() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          favourites: updatedPreferences,
+          preferences: updatedPreferences,
         }),
       });
 
@@ -76,9 +76,15 @@ export default function ArticleItems() {
 
       console.log("saved successfully!");
       console.log("updatedPreferences", updatedPreferences);
+      toast.success("Changes Saved successfully!", {
+        autoClose: 3000,
+      });
       // window.location.reload();
     } catch (error: any) {
       console.error("Failed to save :", error.message);
+      toast.error("Changes failed. Please try again.", {
+        autoClose: 3000,
+      });
     }
   };
 
@@ -87,7 +93,7 @@ export default function ArticleItems() {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto "
           onClose={closeModal}
         >
           <div className="flex items-center justify-center min-h-screen px-4 text-center">
@@ -112,7 +118,7 @@ export default function ArticleItems() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-4xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block shadow-md w-full max-w-4xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white  rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="text-2xl font-bold text-gray-900 mb-4"
@@ -125,7 +131,7 @@ export default function ArticleItems() {
                     Loading article...
                   </div>
                 ) : articleDetailsState.articles ? (
-                  <div className="grid gap-4 mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                  <div className="grid gap-4 mt-4 p-4 bg-white border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                     <h5 className="text-xl font-bold">
                       {articleDetailsState.articles.title}
                     </h5>
@@ -165,33 +171,39 @@ export default function ArticleItems() {
                 )}
 
                 <div className="mt-6 flex justify-center">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModal}
-                  >
-                    Close
-                  </button>
                   <form>
-                    <input
-                      type="checkbox"
-                      value={articleDetailsState.articles.id}
-                      className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        setSelectedArticle((prev) =>
-                          prev.includes(value)
-                            ? prev.filter((item) => item !== value)
-                            : [...prev, value]
-                        );
-                      }}
-                    />
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={articleDetailsState.articles.id}
+                        className="rounded text-blue-500 focus:ring-blue-500 m-2"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setSelectedArticle((prev) =>
+                            prev.includes(value)
+                              ? prev.filter((item) => item !== value)
+                              : [...prev, value]
+                          );
+                        }}
+                        checked={selectedArticle.some(
+                          (id) => id == articleDetailsState.articles.id
+                        )}
+                      />
+                      <span>Save Article</span>
+                    </label>
                     <button
                       type="button"
-                      className="inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      className="m-2 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       onClick={handleSubmit}
                     >
                       save
+                    </button>
+                    <button
+                      type="button"
+                      className="m-3 inline-flex justify-center px-6 py-3 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onClick={closeModal}
+                    >
+                      Close
                     </button>
                   </form>
                 </div>

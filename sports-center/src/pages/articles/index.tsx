@@ -1,10 +1,21 @@
-import ArticleList from "./ArticleList";
+import React, { Suspense } from "react";
+const ArticleList = React.lazy(() => import("./ArticleList"));
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 const Articles = () => {
   return (
     <>
       <div className="">
-        <ArticleList />
+        {/* <ArticleList /> */}
+        <ErrorBoundary>
+          <Suspense
+            fallback={
+              <div className="suspense-loading">Loading Articles...</div>
+            }
+          >
+            <ArticleList />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </>
   );

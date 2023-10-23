@@ -1,8 +1,11 @@
-const Favorites = () => {
+import FavouritesList from "./FavouritesList";
+
+const Favourites = () => {
   return (
     <>
       <div className="">Favorites</div>
+      <FavouritesList />
     </>
   );
 };
-export default Favorites;
+export default Favourites;

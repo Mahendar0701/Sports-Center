@@ -14,6 +14,10 @@ export default function MemberListItems() {
   const matchState: any = useMatchState();
   const { matches, isLoading, isError, errorMessage } = matchState;
 
+  // if (matches.length === 0) {
+  //   throw Error("Error!!!");
+  // }
+
   if (matches.length === 0 && isLoading) {
     return <span>Loading matches...</span>;
   }
@@ -61,7 +65,7 @@ const MatchCard = ({ matchID }: { matchID: number }) => {
       className="border p-5 h-52 w-92 rounded-md shadow-sm hover:shadow-md"
     >
       <div className="flex flex-col justify-between h-full">
-        <Link to={`matches/${match.id}`}>
+        <Link to={`/account/matches/${match.id}`}>
           <div>
             <div className="flex justify-between items-center mb-3">
               <h1 className="text-xl font-semibold text-blue-800 uppercase antialiased">

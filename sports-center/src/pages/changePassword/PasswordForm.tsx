@@ -23,7 +23,7 @@ const PasswordForm = () => {
 
   function closeModal() {
     setIsOpen(false);
-    navigate("/");
+    navigate("../");
   }
 
   const {
@@ -64,63 +64,6 @@ const PasswordForm = () => {
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto">
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-            Change Password
-          </h2>
-        </div>
-        <div>{error && <span className="text-red-500">{error}</span>}</div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="current_password"
-          >
-            Old Password:
-          </label>
-          <input
-            id="current_password"
-            type="password"
-            placeholder="Enter Old Password..."
-            autoFocus
-            {...register("current_password", { required: true })}
-            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
-          />
-          {errors.current_password && (
-            <p className="text-red-500 text-xs italic">
-              Old password is required.
-            </p>
-          )}
-        </div>
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="new_password"
-          >
-            New Password:
-          </label>
-          <input
-            id="new_password"
-            type="password"
-            placeholder="Enter New Password..."
-            {...register("new_password", { required: true })}
-            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
-          />
-          {errors.new_password && (
-            <p className="text-red-500 text-xs italic">
-              New password is required.
-            </p>
-          )}
-        </div>
-        <div className="text-center">
-          <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue"
-          >
-            Change Password
-          </button>
-        </div>
-      </form> */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10 " onClose={closeModal}>
           <Transition.Child
@@ -221,6 +164,63 @@ const PasswordForm = () => {
           </div>
         </Dialog>
       </Transition>
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+            Change Password
+          </h2>
+        </div>
+        <div>{error && <span className="text-red-500">{error}</span>}</div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="current_password"
+          >
+            Old Password:
+          </label>
+          <input
+            id="current_password"
+            type="password"
+            placeholder="Enter Old Password..."
+            autoFocus
+            {...register("current_password", { required: true })}
+            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+          />
+          {errors.current_password && (
+            <p className="text-red-500 text-xs italic">
+              Old password is required.
+            </p>
+          )}
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="new_password"
+          >
+            New Password:
+          </label>
+          <input
+            id="new_password"
+            type="password"
+            placeholder="Enter New Password..."
+            {...register("new_password", { required: true })}
+            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+          />
+          {errors.new_password && (
+            <p className="text-red-500 text-xs italic">
+              New password is required.
+            </p>
+          )}
+        </div>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue"
+          >
+            Change Password
+          </button>
+        </div>
+      </form> */}
     </div>
   );
 };

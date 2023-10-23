@@ -17,6 +17,10 @@ export default function ArticleListItems() {
   const { sports, isLoading1, isError1, errorMessage1 } = sportState;
   const { preferences, isLoading2, isError2, errorMessage2 } = preferencesState;
 
+  // if (articles.length === 0) {
+  //   throw Error("Error!!!");
+  // }
+
   if (isLoading || isLoading1 || isLoading2) {
     return <span>Loading articles...</span>;
   }

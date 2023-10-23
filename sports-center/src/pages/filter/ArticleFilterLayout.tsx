@@ -308,7 +308,7 @@ import { useSportDispatch, useSportState } from "../../context/sports/context";
 import { useTeamDispatch, useTeamState } from "../../context/teams/context";
 import { Link } from "react-router-dom";
 
-const FavouriteArticleFilter: React.FC = () => {
+const ArticleFilterLayout: React.FC = () => {
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedTeam, setSelectedTeam] = useState<string>("");
 
@@ -333,6 +333,10 @@ const FavouriteArticleFilter: React.FC = () => {
   const { teams, isLoading1, isError1, errorMessage1 } = teamState;
   const { articles, isLoading2, isError2, errorMessage2 } = articleState;
   const { preferences, isLoading3, isError3, errorMessage3 } = preferencesState;
+
+  // if (preferences.length === 0) {
+  //   throw Error("Error!!!");
+  // }
 
   if (isLoading || isLoading1 || isLoading2 || isLoading3) {
     return <span>Loading articles...</span>;
@@ -550,4 +554,4 @@ const FavouriteArticleFilter: React.FC = () => {
   );
 };
 
-export default FavouriteArticleFilter;
+export default ArticleFilterLayout;

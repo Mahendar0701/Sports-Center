@@ -1,5 +1,4 @@
 import Articles from "../articles";
-import ArticleContainer from "../articles/ArticleContainer";
 import ArticleFilter from "../filter";
 import Matches from "../matches";
 
