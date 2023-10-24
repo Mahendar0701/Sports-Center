@@ -60,7 +60,7 @@ export default function ArticleListItems() {
   );
 
   return (
-    <div>
+    <div className="dark:bg-gray-800">
       <div className="sticky">
         {isAuthenticated &&
         preferences &&
@@ -72,8 +72,8 @@ export default function ArticleListItems() {
               onClick={() => handleSportButtonClick("Trending")}
               className={`py-2 px-4 border rounded-full ${
                 selectedSport === "Trending"
-                  ? "bg-black text-white"
-                  : "bg-gray-100"
+                  ? "bg-black text-white dark:text-gray-800 dark:bg-white"
+                  : "bg-gray-100 dark:bg-gray-800"
               }`}
             >
               Trending
@@ -86,8 +86,8 @@ export default function ArticleListItems() {
                   onClick={() => handleSportButtonClick(sport)}
                   className={`py-2 px-4 border rounded-full ${
                     selectedSport === sport
-                      ? "bg-black text-white"
-                      : "bg-gray-100"
+                      ? "bg-black text-white dark:text-gray-800 dark:bg-white"
+                      : "bg-gray-100 dark:bg-gray-800"
                   }`}
                 >
                   {sport}
@@ -101,8 +101,8 @@ export default function ArticleListItems() {
               onClick={() => handleSportButtonClick("Trending")}
               className={`py-2 px-4 rounded-full ${
                 selectedSport === "Trending"
-                  ? "bg-black text-white"
-                  : "bg-gray-100"
+                  ? "bg-black text-white  dark:text-gray-800 dark:bg-white"
+                  : "bg-gray-100  dark:bg-gray-800"
               }`}
             >
               Trending
@@ -114,8 +114,8 @@ export default function ArticleListItems() {
                   onClick={() => handleSportButtonClick(sport.name)}
                   className={`py-2 px-4 rounded-full ${
                     selectedSport === sport.name
-                      ? "bg-black text-white"
-                      : "bg-gray-100"
+                      ? "bg-black text-white  dark:text-gray-800 dark:bg-white"
+                      : "bg-gray-100  dark:bg-gray-800"
                   }`}
                 >
                   {sport.name}
@@ -134,15 +134,15 @@ export default function ArticleListItems() {
           </div>
         </div>
       ) : (
-        <div className="my-5 max-h-[1090px] relative overflow-y-scroll bg-gray-50 p-5 rounded-xl">
+        <div className="my-5 max-h-[1090px]  relative overflow-y-scroll bg-gray-50  dark:bg-gray-600 p-5 rounded-xl">
           {filteredArticles.map((article: any) => (
             <div
               key={article.id}
               style={{ height: "300px" }}
-              className="my-5 relative flex w-full max-w-[76rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+              className="my-5 relative flex w-full max-w-[76rem] flex-row rounded-xl bg-white  dark:bg-gray-800  dark:text-white bg-clip-border text-gray-700 shadow-md"
             >
               <div className="relative m-0 w-80 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-                <Link to={`/account/articles/${article.id}`}>
+                <Link to={`articles/${article.id}`}>
                   <img
                     src={article.thumbnail}
                     alt="image"
@@ -151,26 +151,26 @@ export default function ArticleListItems() {
                 </Link>
               </div>
               <div className="p-5 relative">
-                <p className="absolute bottom-5 left-4 font-semibold inset-x-4">
+                <p className="absolute dark:text-white bottom-5 left-4 font-semibold inset-x-4">
                   {new Date(article.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "2-digit",
                   })}
                 </p>
-                <h6 className="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
+                <h6 className="mb-4 block dark:text-white font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
                   {article.sport.name}
                 </h6>
-                <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                <h4 className="mb-2 block  font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                   {article.title}
                 </h4>
-                <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+                <p className="mb-8 block font-sans  dark:text-white text-base font-normal leading-relaxed text-gray-700 antialiased">
                   {article.summary}
                 </p>
 
                 <Link key={article.id} to={`/account/articles/${article.id}`}>
                   <button
-                    className="absolute bottom-4 right-4 bg-white p-2  hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-200  transform hover:scale-110 active:bg-pink-200 flex items-center rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="absolute bottom-4 right-4 bg-white p-2  hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-200  transform hover:scale-110 active:bg-pink-200 flex items-center rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500  dark:text-white dark:bg-black transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="button"
                   >
                     Read More

@@ -18,6 +18,12 @@ const Appbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("authToken")
   );
+  let userData = "";
+  let userProfile = "";
+  if (isAuthenticated) {
+    userData = localStorage.getItem("userData") ?? "";
+    userProfile = JSON.parse(userData);
+  }
 
   const { pathname } = useLocation();
 
@@ -27,17 +33,13 @@ const Appbar = () => {
 
   if (!isAuthenticated) {
     userNavigation = [{ name: "Sign in", href: "/signin" }];
-    // userNavigation.push({ name: "Sign in", href: "/signin" });
-    // userNavigation = userNavigation.filter((item) => item.name !== "Sign out");
   }
   if (isAuthenticated) {
     userNavigation = [
-      { name: "Profile", href: "/account/profile" },
+      { name: "Profile", href: `/account/profile` },
       { name: "Change Password", href: "/account/changePassword" },
       { name: "Sign out", href: "/logout" },
     ];
-    // userNavigation.push({ name: "Sign out", href: "/logout" });
-    // userNavigation = userNavigation.filter((item) => item.name !== "Sign in");
   }
 
   const toggleTheme = () => {
@@ -53,24 +55,25 @@ const Appbar = () => {
 
   const navigation = [
     { name: "Dashboard", href: "/account", current: false },
-    { name: "News", href: "/account/articles", current: false },
-    { name: "Scores", href: "/account/matches", current: false },
     isAuthenticated && {
       name: "Favorites",
-      href: "/account/favourites",
+      href: "/favourites",
       current: false,
     },
   ];
 
   return (
     <>
-      <Disclosure as="nav" className="border-b border-slate-200 ">
+      <Disclosure
+        as="nav"
+        className="border-b border-slate-200 bg-gray-800 p-2 shadow-2xl sticky"
+      >
         {() => (
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <div className="flex items-center">
-                  <h1 className="flex-shrink-0 text-3xl font-semibold font-sans text-gray-900 dark:text-white">
+                  <h1 className="flex-shrink-0 text-3xl font-semibold font-sans text-white">
                     Sports Center
                   </h1>
                   <img
@@ -91,8 +94,8 @@ const Appbar = () => {
                           to={item.href}
                           className={classNames(
                             isCurrent
-                              ? "bg-slate-50 text-blue-700"
-                              : "text-slate-500 hover:text-blue-600",
+                              ? "bg-slate-50 text-gray-900"
+                              : "text-white hover:text-blue-600",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={isCurrent ? "page" : undefined}
@@ -121,8 +124,20 @@ const Appbar = () => {
                   </Switch>
 
                   {isAuthenticated ? (
-                    <div className="">
+                    <div className="flex">
                       <Preferences />
+                      {/* <Link to={`preferences`}>
+                        <button
+                          type="button"
+                          // onClick={openModal}
+                          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                        >
+                          Preferences
+                        </button>
+                      </Link> */}
+                      <h1 className="text-2xl font-semibold text-white mx-2">
+                        {userProfile.name}
+                      </h1>
                     </div>
                   ) : null}
                   {!isAuthenticated ? (

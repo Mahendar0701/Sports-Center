@@ -124,15 +124,15 @@ const ArticleFilterLayout: React.FC = () => {
   }
 
   return (
-    <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+    <div className="p-4 rounded-xl bg-white border border-gray-200  dark:bg-gray-500 shadow-sm">
       <div className="bg-white">
         {isAuthenticated &&
         preferences &&
         preferences.sports &&
         preferences.sports.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-4 dark:bg-gray-500">
             <select
-              className="p-3 border border-gray-200 w-80 rounded-md bg-gray-100"
+              className="p-3 border border-gray-200 w-80 rounded-md bg-gray-100 dark:bg-black"
               value={selectedSport}
               onChange={(e) => setSelectedSport(e.target.value)}
             >
@@ -144,7 +144,7 @@ const ArticleFilterLayout: React.FC = () => {
               ))}
             </select>
             <select
-              className="p-3 border border-gray-200 w-80 rounded-md bg-gray-100"
+              className="p-3 border border-gray-200 w-80 rounded-md bg-gray-100 dark:bg-black"
               value={selectedTeam}
               onChange={(e) => setSelectedTeam(e.target.value)}
             >
@@ -189,11 +189,11 @@ const ArticleFilterLayout: React.FC = () => {
       {articleState.isLoading ? (
         <div>Loading articles..</div>
       ) : selectedSport ? (
-        <div className="mt-4 space-y-4 max-h-[920px] overflow-y-scroll">
+        <div className="mt-4 space-y-4 max-h-[990px] overflow-y-scroll ">
           {filteredArticles.map((article: any) => (
             <div
               key={article.id}
-              className="bg-white border border-gray-200 rounded-lg shadow-md mr-2"
+              className="bg-white  dark:bg-black border border-gray-200 rounded-lg shadow-md mr-2"
             >
               <Link to={`/account/articles/${article.id}`}>
                 <img
@@ -236,11 +236,11 @@ const ArticleFilterLayout: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="mt-4 space-y-4 max-h-[950px] overflow-y-scroll ">
+        <div className="mt-4 space-y-4 max-h-[980px] overflow-y-scroll ">
           {filteredDefaultArticles.map((article: any) => (
             <div
               key={article.id}
-              className="bg-white border border-gray-200 rounded-lg shadow-md mr-2"
+              className="bg-white dark:bg-black border border-gray-200 rounded-lg shadow-md mr-2"
             >
               <Link to={`/account/articles/${article.id}`}>
                 <img
@@ -249,7 +249,6 @@ const ArticleFilterLayout: React.FC = () => {
                   className="w-full h-80 object-cover rounded-t-lg"
                 />
               </Link>
-              default
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

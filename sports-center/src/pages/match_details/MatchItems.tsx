@@ -8,6 +8,7 @@ import { useState, useEffect, Fragment } from "react";
 import { usePreferencesState } from "../../context/preferences/context";
 import { API_ENDPOINT } from "../../config/constants";
 import { toast } from "react-toastify";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 
 export default function MatchItems() {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,6 +98,21 @@ export default function MatchItems() {
       });
     }
   };
+  function calculateDuration(
+    startDate: string | number | Date,
+    endDate: string | number | Date
+  ) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const durationInMilliseconds = end - start;
+    const durationInSeconds = Math.floor(durationInMilliseconds / 1000);
+    const hours = Math.floor(durationInSeconds / 3600);
+    const minutes = Math.floor((durationInSeconds % 3600) / 60);
+    const seconds = durationInSeconds % 60;
+
+    return `${hours} hours ${minutes} minutes `;
+  }
   const isAuthenticated = !!localStorage.getItem("authToken");
 
   return (
@@ -104,7 +120,7 @@ export default function MatchItems() {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto"
+          className="fixed inset-0 z-10  overflow-y-auto"
           onClose={closeModal}
         >
           <div className="flex items-center justify-center min-h-screen">

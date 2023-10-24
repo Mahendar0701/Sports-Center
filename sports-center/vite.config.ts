@@ -1,11 +1,3 @@
-// import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react'
-
-// // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [react()],
-// })
-
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -22,8 +14,8 @@ export default ({ mode }) => {
           enabled: true, // For making sure that the PWA is testable from the Local dev environment
         },
         manifest: {
-          name: "Smarter Tasks application",
-          short_name: "Smarter Tasks",
+          name: "Sports Center Application",
+          short_name: "Sports Center",
           icons: [
             {
               src: "favicon.ico",

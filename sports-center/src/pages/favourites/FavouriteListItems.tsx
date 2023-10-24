@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useState } from "react";
 import { useArticleState } from "../../context/articles/context";
 import { Link } from "react-router-dom";
@@ -39,10 +41,10 @@ export default function FavouriteListItems() {
     });
   }
 
-  let filteredMatches = [];
+  let filteredMatches: any[] = [];
   if (preferences && preferences.matches && preferences.matches.length > 0) {
-    preferences.matches.forEach((preferenceMatchId) => {
-      matches.forEach((match) => {
+    preferences.matches.forEach((preferenceMatchId: any) => {
+      matches.forEach((match: { id: any }) => {
         if (match.id == preferenceMatchId) {
           console.log(match);
           filteredMatches.push(match);
@@ -55,19 +57,20 @@ export default function FavouriteListItems() {
   console.log("filteredMatches", filteredMatches);
 
   return (
-    <div className="flex ">
-      <div>
-        <p>Saved articles</p>
+    <div className="grid grid-cols-5 gap-3 ">
+      <div className="col-span-3 border p-3 rounded-md">
+        <p className="text-xl font-semibold text-gray-800">Saved articles</p>
+
         {isLoading ? (
           <div>Loading...</div>
         ) : filteredArticles.length === 0 ? (
           <div className="flex h-[10vh] items-center justify-center">
             <div className="text-xl font-semibold text-gray-600">
-              Articles not available
+              No Saved articles
             </div>
           </div>
         ) : (
-          <div className="my-5 max-h-[1090px] max-w-[56rem] relative overflow-y-scroll bg-gray-50 p-5 rounded-xl">
+          <div className="my-5 max-h-[700px] max-w-[56rem] relative overflow-y-scroll bg-gray-50 p-5 rounded-xl">
             {filteredArticles.map((article: any) => (
               <div
                 key={article.id}
@@ -130,15 +133,17 @@ export default function FavouriteListItems() {
           </div>
         )}
       </div>
-      <div className="mx-10">
-        <p>saved matches</p>
-        {filteredMatches
-          .filter((match) => match)
-          .map((match: any) => (
-            <div key={match.id} className="">
-              <div className="py-3">{<MatchCard matchID={match.id} />}</div>
-            </div>
-          ))}
+      <div className="col-span-2 mx-14 p-6 border rounded-sm l">
+        <p className="text-xl font-semibold text-gray-800">Saved matches</p>
+        <div className="max-h-[800px] max-w-[56rem] relative overflow-y-scroll">
+          {filteredMatches
+            .filter((match) => match)
+            .map((match: any) => (
+              <div key={match.id} className="bg-white">
+                <div className="py-3">{<MatchCard matchID={match.id} />}</div>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
@@ -177,12 +182,20 @@ const MatchCard = ({ matchID }: { matchID: number }) => {
               </h1>
 
               <div className="flex items-center">
-                <div className="relative inline-flex mr-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-ping"></div>
-                  <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-pulse"></div>
-                </div>
-                <p className="text-green-500 animate-pulse">Live</p>
+                {match.isRunning && (
+                  <div className="relative inline-flex mr-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-ping"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-pulse"></div>
+                  </div>
+                )}
+                <p
+                  className={`text-green-500 ${
+                    match.isRunning ? "animate-pulse" : ""
+                  }`}
+                >
+                  {match.isRunning && "Live"}
+                </p>
               </div>
             </div>
 

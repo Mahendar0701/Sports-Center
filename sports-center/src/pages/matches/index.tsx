@@ -6,6 +6,7 @@ const Matches = () => {
   return (
     <>
       <h2 className="text-xl font-semibold">Matches</h2>
+      <hr className="my-5" />
       {/* <MatchList /> */}
       <ErrorBoundary>
         <Suspense

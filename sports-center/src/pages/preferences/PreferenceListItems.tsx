@@ -19,8 +19,10 @@ export default function PreferenceListItems() {
   const openModal = () => {
     setIsOpen(true);
   };
+  // const navigate = useNavigate();
   const closeModal = () => {
     setIsOpen(false);
+    // navigate("../");
   };
 
   const sportState: any = useSportState();

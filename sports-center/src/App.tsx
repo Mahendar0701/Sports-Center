@@ -2,8 +2,8 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import router from "./routes";
+import { ThemeContext } from "./context/theme";
 import { ToastContainer } from "react-toastify";
-
 import { ArticleProvider } from "./context/articles/context";
 import { MatchProvider } from "./context/matches/context";
 import { SportProvider } from "./context/sports/context";
@@ -11,10 +11,12 @@ import { TeamProvider } from "./context/teams/context";
 import { PreferencesProvider } from "./context/preferences/context";
 import { ArticleDetailProvider } from "./context/article_details/context";
 import { MatchDetailProvider } from "./context/match_details/context";
+import { useContext } from "react";
 
 const App = () => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <div>
+    <div className={`h-full w-full  ${theme === "dark" ? "dark" : ""}`}>
       <ArticleProvider>
         <MatchProvider>
           <SportProvider>

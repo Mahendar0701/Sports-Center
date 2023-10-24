@@ -8,15 +8,15 @@ import { usePreferencesDispatch } from "../../context/preferences/context";
 import { useSportDispatch } from "../../context/sports/context";
 
 const ArticleList: React.FC = () => {
-  // const dispatchArticle = useArticleDispatch();
-  // const dispatchSport = useSportDispatch();
-  // const dispatchPreferences = usePreferencesDispatch();
+  const dispatchArticle = useArticleDispatch();
+  const dispatchSport = useSportDispatch();
+  const dispatchPreferences = usePreferencesDispatch();
 
-  // useEffect(() => {
-  //   fetchArticles(dispatchArticle);
-  //   fetchSports(dispatchSport);
-  //   fetchPreferences(dispatchPreferences);
-  // }, []);
+  useEffect(() => {
+    fetchArticles(dispatchArticle);
+    fetchSports(dispatchSport);
+    fetchPreferences(dispatchPreferences);
+  }, []);
 
   return (
     <div className="mr-7 my-5">

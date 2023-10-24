@@ -16,6 +16,7 @@ import Profile from "../pages/profile";
 import NotFound from "../pages/Notfound";
 import ProtectedRoute from "./ProtectedRoute";
 import Favourites from "../pages/favourites";
+import Preferences from "../pages/preferences";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/account" replace /> },
@@ -36,12 +37,12 @@ const router = createBrowserRouter([
     element: <AccountLayout />,
     children: [
       // { index: true, element: <Navigate to="/account" replace /> },
-      { index: true, element: <Dashboard /> },
+      // { index: true, element: <Dashboard /> },
       {
         path: "articles",
-        element: <ArticleContainer />,
+        // element: <ArticleContainer />,
         children: [
-          { index: true, element: <Articles /> },
+          // { index: true, element: <Articles /> },
           {
             path: ":articleID",
             element: <ArticleDetailsIndex />,
@@ -58,12 +59,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "sports",
-        element: <Sports />,
-      },
+
       {
         path: "favourites",
+
         children: [
           {
             index: true,
@@ -96,9 +95,14 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       {
-        path: "articles",
-        element: <Articles />,
+        path: "preferences",
+        element: (
+          <ProtectedRoute>
+            <Preferences />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "changePassword",
@@ -132,13 +136,60 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: "favourites",
+  //   element: (
+  //     <ProtectedRoute>
+  //       <Favourites />
+  //     </ProtectedRoute>
+  //   ),
+  // },
+  {
+    path: "favourites",
+    // element: (
+    //   <ProtectedRoute>
+    //     <Favourites />
+    //   </ProtectedRoute>
+    // ),
+    children: [
+      {
+        index: true,
+        element: (
+          <ProtectedRoute>
+            <Favourites />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "articles",
+        // element: <Favourites />,
+        children: [
+          { index: true, element: <Articles /> },
+          {
+            path: ":articleID",
+            element: <ArticleDetailsIndex />,
+          },
+        ],
+      },
+      {
+        path: "matches",
+        children: [
+          { index: true, element: <Matches /> },
+          {
+            path: ":matchID",
+            element: <MatchDetailsIndex />,
+          },
+        ],
+      },
+    ],
+  },
   {
     path: "/notfound",
     element: <NotFound />,
   },
-  {
-    path: "*",
-    element: <Navigate to="/notfound" replace />,
-  },
+  // {
+  //   path: "*",
+  //   element: <Navigate to="/notfound" replace />,
+  // },
 ]);
 export default router;
