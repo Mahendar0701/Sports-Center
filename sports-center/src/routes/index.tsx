@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     path: "account",
     element: <AccountLayout />,
     children: [
-      // { index: true, element: <Navigate to="./" replace /> },
+      // { index: true, element: <Navigate to="/account" replace /> },
       { index: true, element: <Dashboard /> },
       {
         path: "articles",
@@ -110,6 +110,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
+
         children: [
           {
             index: true,
@@ -135,9 +136,9 @@ const router = createBrowserRouter([
     path: "/notfound",
     element: <NotFound />,
   },
-  // {
-  //   path: "*",
-  //   element: <Navigate to="/notfound" replace />,
-  // },
+  {
+    path: "*",
+    element: <Navigate to="/notfound" replace />,
+  },
 ]);
 export default router;

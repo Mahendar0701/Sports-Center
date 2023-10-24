@@ -28,24 +28,28 @@ export default function FavouriteListItems() {
   }
 
   let filteredArticles: any[] = [];
-  preferences.articles.forEach((preferenceArticleId) => {
-    articles.forEach((article) => {
-      if (article.id == preferenceArticleId) {
-        console.log(article);
-        filteredArticles.push(article);
-      }
+  if (preferences && preferences.articles && preferences.articles.length > 0) {
+    preferences.articles.forEach((preferenceArticleId) => {
+      articles.forEach((article) => {
+        if (article.id == preferenceArticleId) {
+          console.log(article);
+          filteredArticles.push(article);
+        }
+      });
     });
-  });
+  }
 
   let filteredMatches = [];
-  preferences.matches.forEach((preferenceMatchId) => {
-    matches.forEach((match) => {
-      if (match.id == preferenceMatchId) {
-        console.log(match);
-        filteredMatches.push(match);
-      }
+  if (preferences && preferences.matches && preferences.matches.length > 0) {
+    preferences.matches.forEach((preferenceMatchId) => {
+      matches.forEach((match) => {
+        if (match.id == preferenceMatchId) {
+          console.log(match);
+          filteredMatches.push(match);
+        }
+      });
     });
-  });
+  }
 
   console.log("filteredArticles", filteredArticles);
   console.log("filteredMatches", filteredMatches);
