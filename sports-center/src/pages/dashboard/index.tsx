@@ -17,7 +17,6 @@ const Dashboard = () => {
   const dispatchPreferences = usePreferencesDispatch();
 
   useEffect(() => {
-    console.log("useeffect pref saving");
     fetchSports(dispatchSport);
     fetchSports(dispatchArticle);
     fetchTeams(dispatchTeam);

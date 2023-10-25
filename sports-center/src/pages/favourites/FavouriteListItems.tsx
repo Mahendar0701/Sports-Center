@@ -59,23 +59,25 @@ export default function FavouriteListItems() {
   return (
     <div className="grid grid-cols-5 gap-3 ">
       <div className="col-span-3 border p-3 rounded-md">
-        <p className="text-xl font-semibold text-gray-800">Saved articles</p>
+        <p className="text-xl font-semibold text-gray-800 dark:text-white">
+          Saved articles
+        </p>
 
         {isLoading ? (
           <div>Loading...</div>
         ) : filteredArticles.length === 0 ? (
-          <div className="flex h-[10vh] items-center justify-center">
-            <div className="text-xl font-semibold text-gray-600">
+          <div className="flex h-[10vh] items-center justify-center ">
+            <div className="text-xl font-semibold text-gray-600 dark:text-white">
               No Saved articles
             </div>
           </div>
         ) : (
-          <div className="my-5 max-h-[700px] max-w-[56rem] relative overflow-y-scroll bg-gray-50 p-5 rounded-xl">
+          <div className="my-5 max-h-[700px] max-w-[56rem] relative overflow-y-scroll bg-gray-50 p-5 rounded-xl dark:bg-gray-600">
             {filteredArticles.map((article: any) => (
               <div
                 key={article.id}
                 style={{ height: "300px" }}
-                className="my-5 relative flex w-full max-w-[56rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+                className="dark:bg-black my-5 relative flex w-full max-w-[56rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
               >
                 <div className="relative m-0 w-80 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
                   <Link to={`articles/${article.id}`}>
@@ -86,7 +88,7 @@ export default function FavouriteListItems() {
                     />
                   </Link>
                 </div>
-                <div className="p-5 relative">
+                <div className="p-5 relative dark:text-white">
                   <p className="absolute bottom-5 left-4 font-semibold inset-x-4">
                     {new Date(article.date).toLocaleDateString("en-US", {
                       year: "numeric",
@@ -94,13 +96,13 @@ export default function FavouriteListItems() {
                       day: "2-digit",
                     })}
                   </p>
-                  <h6 className="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
+                  <h6 className="mb-4  block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
                     {article.sport.name}
                   </h6>
-                  <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                  <h4 className="mb-2 dark:text-white block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                     {article.title}
                   </h4>
-                  <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+                  <p className="mb-8 block dark:text-white font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
                     {article.summary}
                   </p>
 
@@ -133,13 +135,15 @@ export default function FavouriteListItems() {
           </div>
         )}
       </div>
-      <div className="col-span-2 mx-14 p-6 border rounded-sm l">
-        <p className="text-xl font-semibold text-gray-800">Saved matches</p>
-        <div className="max-h-[800px] max-w-[56rem] relative overflow-y-scroll">
+      <div className="col-span-2 mx-14 p-6 border rounded-sm l  dark:bg-gray-600">
+        <p className="text-xl font-semibold text-gray-800  dark:text-white">
+          Saved matches
+        </p>
+        <div className="max-h-[800px] max-w-[56rem] relative overflow-y-scroll ">
           {filteredMatches
             .filter((match) => match)
             .map((match: any) => (
-              <div key={match.id} className="bg-white">
+              <div key={match.id} className="bg-white  dark:bg-gray-600">
                 <div className="py-3">{<MatchCard matchID={match.id} />}</div>
               </div>
             ))}
@@ -171,7 +175,7 @@ const MatchCard = ({ matchID }: { matchID: number }) => {
   return match ? (
     <div
       key={match.id}
-      className="border p-5 h-52 w-92 rounded-md shadow-sm hover:shadow-md"
+      className="border p-5 h-52 w-92 rounded-md shadow-sm hover:shadow-md dark:bg-black"
     >
       <div className="flex flex-col justify-between h-full">
         <Link to={`matches/${match.id}`}>

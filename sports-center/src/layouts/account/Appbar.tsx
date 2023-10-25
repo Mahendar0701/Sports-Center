@@ -72,16 +72,19 @@ const Appbar = () => {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex items-center">
-                  <h1 className="flex-shrink-0 text-3xl font-semibold font-sans text-white">
-                    Sports Center
-                  </h1>
-                  <img
-                    className="h-11 ml-2 bg-transparent"
-                    src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?w=740&t=st=1697467632~exp=1697468232~hmac=468d315330fdba8c3a10df360b6d730b61853c243f411d1ccd5a057aac6d5d87"
-                    alt="Smarter Tasks"
-                  />
-                </div>
+                <Link to={`/account`}>
+                  <div className="flex items-center">
+                    <h1 className="font-serif flex-shrink-0 text-3xl font-semibold font-sans text-white">
+                      Sports Center
+                    </h1>
+                    {/* <img
+                      className="h-11 ml-2 bg-transparent"
+                      src=" "
+                      // src="https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?w=740&t=st=1697467632~exp=1697468232~hmac=468d315330fdba8c3a10df360b6d730b61853c243f411d1ccd5a057aac6d5d87"
+                      alt="Smarter Tasks"
+                    /> */}
+                  </div>
+                </Link>
 
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">

@@ -82,10 +82,11 @@ export default function MemberListItems() {
   ));
 
   const last5MatchesRow = last5Matches
+    .slice(0, 5)
     .filter((match) => match)
     .map((match: any) => (
       <div key={match.id}>
-        <div className="py-5 mx-3">
+        <div className="py-5 mx-3 ">
           <MatchCard matchID={match.id} />
         </div>
       </div>
@@ -104,7 +105,7 @@ export default function MemberListItems() {
         )}
         <br />
         <p className="text-xl ">Previous Matches</p>
-        <div className="flex flex-row">{last5MatchesRow}</div>
+        <div className="flex flex-row ">{last5MatchesRow}</div>
       </div>
     </>
   );

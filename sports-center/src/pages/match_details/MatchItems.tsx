@@ -98,21 +98,7 @@ export default function MatchItems() {
       });
     }
   };
-  function calculateDuration(
-    startDate: string | number | Date,
-    endDate: string | number | Date
-  ) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
 
-    const durationInMilliseconds = end - start;
-    const durationInSeconds = Math.floor(durationInMilliseconds / 1000);
-    const hours = Math.floor(durationInSeconds / 3600);
-    const minutes = Math.floor((durationInSeconds % 3600) / 60);
-    const seconds = durationInSeconds % 60;
-
-    return `${hours} hours ${minutes} minutes `;
-  }
   const isAuthenticated = !!localStorage.getItem("authToken");
 
   return (
@@ -129,16 +115,37 @@ export default function MatchItems() {
                 <div>Loading...</div>
               ) : state.matches ? (
                 <>
-                  <h3 className="text-2xl font-bold mb-2">
+                  <div className="flex justify-between items-center mb-3">
+                    <h1 className="text-2xl font-semibold text-blue-800 uppercase antialiased">
+                      {state.matches.sportName}
+                    </h1>
+                    <div className="flex items-center">
+                      {state.matches.isRunning && (
+                        <div className="relative inline-flex mr-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-ping"></div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full absolute top-0 left-0 animate-pulse"></div>
+                        </div>
+                      )}
+                      <p
+                        className={`text-green-500 ${
+                          state.matches.isRunning ? "animate-pulse" : ""
+                        }`}
+                      >
+                        {state.matches.isRunning && "Live"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <hr className="my-2" />
+                  <h3 className="text-2xl font-semibold mb-2">
                     {state.matches.name}
                   </h3>
                   <div className="mb-4">
-                    <p className="text-sm text-gray-700">
-                      <span>ID:</span> {state.matches.id}
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      <span>Location:</span> {state.matches.location}
-                    </p>
+                    <div className="flex items-center my-2 ">
+                      <MapPinIcon className="w-4 h-4 mr-1" />{" "}
+                      {state.matches.location}
+                    </div>
                     <p className="text-sm text-gray-700">
                       <span>Starts At:</span>{" "}
                       {new Date(state.matches.startsAt).toLocaleString()}
@@ -147,9 +154,7 @@ export default function MatchItems() {
                       <span>Ends At:</span>{" "}
                       {new Date(state.matches.endsAt).toLocaleString()}
                     </p>
-                    <p className="text-sm text-gray-700">
-                      <span>Sport:</span> {state.matches.sportName}
-                    </p>
+
                     <p className="text-sm text-gray-700">
                       <span>Is Running:</span>{" "}
                       {state.matches.isRunning ? "Yes" : "No"}

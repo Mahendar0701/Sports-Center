@@ -123,23 +123,23 @@ export default function PreferenceListItems() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl  dark:bg-black transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Favorite Sport
                   </Dialog.Title>
-                  <div className="mt-2">
+                  <div className="mt-2 dark:text-white dark:bg-black ">
                     <form onSubmit={handleSubmit}>
                       <div className="">
-                        <div className="grid grid-cols-5 gap-3">
+                        <div className="grid grid-cols-5 gap-3  dark:bg-black">
                           {sports &&
                             sports.length > 0 &&
                             sports.map((sport) => (
                               <div
                                 key={sport.id}
-                                className="flex items-center space-x-2"
+                                className="flex items-center space-x-2  dark:bg-black"
                               >
                                 <input
                                   type="checkbox"

@@ -61,42 +61,6 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "favourites",
-
-        children: [
-          {
-            index: true,
-            element: (
-              <ProtectedRoute>
-                <Favourites />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: "articles",
-            element: <ArticleContainer />,
-            children: [
-              { index: true, element: <Articles /> },
-              {
-                path: ":articleID",
-                element: <ArticleDetailsIndex />,
-              },
-            ],
-          },
-          {
-            path: "matches",
-            children: [
-              { index: true, element: <Matches /> },
-              {
-                path: ":matchID",
-                element: <MatchDetailsIndex />,
-              },
-            ],
-          },
-        ],
-      },
-
-      {
         path: "preferences",
         element: (
           <ProtectedRoute>
@@ -136,21 +100,8 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "favourites",
-  //   element: (
-  //     <ProtectedRoute>
-  //       <Favourites />
-  //     </ProtectedRoute>
-  //   ),
-  // },
   {
     path: "favourites",
-    // element: (
-    //   <ProtectedRoute>
-    //     <Favourites />
-    //   </ProtectedRoute>
-    // ),
     children: [
       {
         index: true,
@@ -187,9 +138,9 @@ const router = createBrowserRouter([
     path: "/notfound",
     element: <NotFound />,
   },
-  // {
-  //   path: "*",
-  //   element: <Navigate to="/notfound" replace />,
-  // },
+  {
+    path: "*",
+    element: <Navigate to="/notfound" replace />,
+  },
 ]);
 export default router;
